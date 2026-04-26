@@ -1,21 +1,49 @@
-<div *ngIf="data">
-  <h2>Score: {{ data.score }}</h2>
+<div class="review-page" *ngIf="data">
+  <!-- Score Summary -->
+  <mat-card class="score-card">
+    <h2>Review Answers</h2>
 
-  <div *ngFor="let q of data.questions" class="question">
-    <p>
-      <b>{{ q.content }}</b>
-    </p>
+    <mat-chip color="primary"> Score: {{ data.score }} </mat-chip>
+  </mat-card>
 
-    <div
-      *ngFor="let a of q.answers"
-      [class.correct]="isCorrect(a)"
-      [class.wrong]="isSelected(q, a) && !isCorrect(a)"
-      [class.selected]="isSelected(q, a)"
-    >
-      {{ a.content }}
+  <!-- Question List -->
+  <div *ngFor="let q of data.questions; let i = index">
+    <mat-card class="question-card">
+      <!-- Question Header -->
+      <div class="question-header">
+        <h3>Question {{ i + 1 }}</h3>
+      </div>
 
-      <span *ngIf="isCorrect(a)">✔</span>
-      <span *ngIf="isSelected(q, a) && !isCorrect(a)">✖</span>
-    </div>
+      <p class="question-content">
+        {{ q.content }}
+      </p>
+
+      <mat-divider></mat-divider>
+
+      <!-- Answers -->
+      <div class="answer-list">
+        <div
+          *ngFor="let a of q.answers"
+          class="answer-item"
+          [class.correct]="isCorrect(a)"
+          [class.wrong]="isSelected(q, a) && !isCorrect(a)"
+          [class.selected]="isSelected(q, a)"
+        >
+          <div class="answer-content">
+            <span>
+              {{ a.content }}
+            </span>
+
+            <div class="answer-status">
+              <mat-icon *ngIf="isCorrect(a)"> check_circle </mat-icon>
+
+              <mat-icon *ngIf="isSelected(q, a) && !isCorrect(a)">
+                cancel
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
   </div>
 </div>

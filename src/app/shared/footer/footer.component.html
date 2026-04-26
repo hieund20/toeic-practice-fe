@@ -1,0 +1,18 @@
+<mat-toolbar class="footer-toolbar">
+  <!-- Left -->
+  <div class="footer-left">{{ appName }} © {{ currentYear }}</div>
+
+  <!-- Spacer -->
+  <span class="spacer"></span>
+
+  <!-- Right -->
+  <div class="footer-right">
+    <a routerLink="/tests"> Tests </a>
+
+    <span class="divider">|</span>
+
+    <span>
+      {{ version }}
+    </span>
+  </div>
+</mat-toolbar>

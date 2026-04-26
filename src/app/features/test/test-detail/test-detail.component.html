@@ -1,62 +1,87 @@
-<div class="container" *ngIf="test">
+<div class="page-container" *ngIf="test">
   <!-- HEADER -->
-  <div class="header">
-    <h2>{{ test.title }}</h2>
-    <div class="timer">⏱ {{ timeLeft }}</div>
-    <button (click)="submit()">Submit</button>
-  </div>
+  <mat-card class="top-card">
+    <div class="top-section">
+      <div>
+        <h2>{{ test.title }}</h2>
+        <p>Question {{ currentIndex + 1 }} / {{ flatQuestions.length }}</p>
+      </div>
 
-  <!-- MAIN -->
-  <div class="main">
+      <div class="header-actions">
+        <mat-chip> ⏱ {{ timeLeft }} </mat-chip>
+
+        <button mat-raised-button color="primary" (click)="submit()">
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <mat-progress-bar
+      mode="determinate"
+      [value]="((currentIndex + 1) / flatQuestions.length) * 100"
+    >
+    </mat-progress-bar>
+  </mat-card>
+
+  <!-- MAIN CONTENT -->
+  <div class="content-layout">
     <!-- LEFT PANEL -->
-    <div class="left">
+    <mat-card class="question-panel">
       <ng-container *ngIf="currentQuestion">
-        <!-- GROUP (audio / passage) -->
-        <div *ngIf="currentGroup">
+        <!-- Group Content -->
+        <div *ngIf="currentGroup" class="group-section">
           <audio
             *ngIf="currentGroup.audioUrl"
             controls
             [src]="currentGroup.audioUrl"
           ></audio>
-          <p *ngIf="currentGroup.content">{{ currentGroup.content }}</p>
+
+          <div *ngIf="currentGroup.content" class="passage">
+            {{ currentGroup.content }}
+          </div>
         </div>
 
-        <!-- QUESTION -->
-        <h3>Question {{ currentIndex + 1 }}</h3>
-        <p>{{ currentQuestion.content }}</p>
+        <mat-divider></mat-divider>
+
+        <div class="question-section">
+          <h3>Question {{ currentIndex + 1 }}</h3>
+
+          <p>
+            {{ currentQuestion.content }}
+          </p>
+        </div>
       </ng-container>
-    </div>
+    </mat-card>
 
     <!-- RIGHT PANEL -->
-    <div class="right">
-      <!-- ANSWERS -->
+    <mat-card class="answer-panel">
+      <!-- Answer options -->
       <div *ngIf="currentQuestion">
-        <div *ngFor="let a of currentQuestion.answers">
-          <label
-            [class.selected]="selectedAnswers[currentQuestion.id] === a.id"
-          >
-            <input
-              type="radio"
-              [name]="currentQuestion.id"
+        <mat-radio-group>
+          <div *ngFor="let a of currentQuestion.answers" class="answer-item">
+            <mat-radio-button
               [checked]="selectedAnswers[currentQuestion.id] === a.id"
               (change)="selectAnswer(currentQuestion.id, a.id)"
-            />
-            {{ a.content }}
-          </label>
-        </div>
+            >
+              {{ a.content }}
+            </mat-radio-button>
+          </div>
+        </mat-radio-group>
       </div>
 
-      <!-- NAVIGATION -->
+      <mat-divider></mat-divider>
+
+      <!-- Navigator -->
       <div class="navigator">
         <button
+          mat-stroked-button
           *ngFor="let q of flatQuestions; let i = index"
-          [class.answered]="selectedAnswers[q.id]"
-          [class.active]="i === currentIndex"
+          [color]="i === currentIndex ? 'primary' : ''"
           (click)="goTo(i)"
         >
           {{ i + 1 }}
         </button>
       </div>
-    </div>
+    </mat-card>
   </div>
 </div>

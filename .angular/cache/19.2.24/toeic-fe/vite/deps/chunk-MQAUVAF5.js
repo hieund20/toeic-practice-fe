@@ -3,7 +3,7 @@ import {
   setClassMetadata,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-KBFU4Q6Z.js";
+} from "./chunk-YTPOADQM.js";
 
 // node_modules/@angular/cdk/fesm2022/scrolling-BkvA05C8.mjs
 var RtlScrollAxisType;
@@ -29,4 +29,4 @@ var PlatformModule = class _PlatformModule {
     args: [{}]
   }], null, null);
 })();
-//# sourceMappingURL=chunk-2EPUGUER.js.map
+//# sourceMappingURL=chunk-MQAUVAF5.js.map

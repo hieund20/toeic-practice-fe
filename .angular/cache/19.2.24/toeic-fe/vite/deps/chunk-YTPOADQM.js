@@ -2398,6 +2398,9 @@ function popResultSelector(args) {
 function popScheduler(args) {
   return isScheduler(last(args)) ? args.pop() : void 0;
 }
+function popNumber(args, defaultValue) {
+  return typeof last(args) === "number" ? args.pop() : defaultValue;
+}
 
 // node_modules/rxjs/dist/esm5/internal/util/isArrayLike.js
 var isArrayLike = function(x) {
@@ -3199,6 +3202,18 @@ function forkJoin() {
   return resultSelector ? result.pipe(mapOneOrManyArgs(resultSelector)) : result;
 }
 
+// node_modules/rxjs/dist/esm5/internal/observable/merge.js
+function merge() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  var scheduler = popScheduler(args);
+  var concurrent = popNumber(args, Infinity);
+  var sources = args;
+  return !sources.length ? EMPTY : sources.length === 1 ? innerFrom(sources[0]) : mergeAll(concurrent)(from(sources, scheduler));
+}
+
 // node_modules/rxjs/dist/esm5/internal/observable/never.js
 var NEVER = new Observable(noop);
 
@@ -3449,6 +3464,20 @@ function last2(predicate, defaultValue) {
   };
 }
 
+// node_modules/rxjs/dist/esm5/internal/operators/pairwise.js
+function pairwise() {
+  return operate(function(source, subscriber) {
+    var prev;
+    var hasPrev = false;
+    source.subscribe(createOperatorSubscriber(subscriber, function(value) {
+      var p = prev;
+      prev = value;
+      hasPrev && subscriber.next([p, value]);
+      hasPrev = true;
+    }));
+  });
+}
+
 // node_modules/rxjs/dist/esm5/internal/operators/scan.js
 function scan(accumulator, seed) {
   return operate(scanInternals(accumulator, seed, arguments.length >= 2, true));
@@ -3538,6 +3567,26 @@ function handleReset(reset, on) {
     }
   });
   return innerFrom(on.apply(void 0, __spreadArray([], __read(args)))).subscribe(onSubscriber);
+}
+
+// node_modules/rxjs/dist/esm5/internal/operators/shareReplay.js
+function shareReplay(configOrBufferSize, windowTime2, scheduler) {
+  var _a, _b, _c;
+  var bufferSize;
+  var refCount2 = false;
+  if (configOrBufferSize && typeof configOrBufferSize === "object") {
+    _a = configOrBufferSize.bufferSize, bufferSize = _a === void 0 ? Infinity : _a, _b = configOrBufferSize.windowTime, windowTime2 = _b === void 0 ? Infinity : _b, _c = configOrBufferSize.refCount, refCount2 = _c === void 0 ? false : _c, scheduler = configOrBufferSize.scheduler;
+  } else {
+    bufferSize = configOrBufferSize !== null && configOrBufferSize !== void 0 ? configOrBufferSize : Infinity;
+  }
+  return share({
+    connector: function() {
+      return new ReplaySubject(bufferSize, windowTime2, scheduler);
+    },
+    resetOnError: true,
+    resetOnComplete: false,
+    resetOnRefCountZero: refCount2
+  });
 }
 
 // node_modules/rxjs/dist/esm5/internal/operators/skip.js
@@ -29680,6 +29729,7 @@ export {
   concat,
   defer,
   forkJoin,
+  merge,
   filter,
   catchError,
   concatMap,
@@ -29691,8 +29741,10 @@ export {
   first,
   takeLast,
   last2 as last,
+  pairwise,
   scan,
   share,
+  shareReplay,
   skip,
   startWith,
   switchMap,
@@ -30224,4 +30276,4 @@ export {
    * found in the LICENSE file at https://angular.dev/license
    *)
 */
-//# sourceMappingURL=chunk-KBFU4Q6Z.js.map
+//# sourceMappingURL=chunk-YTPOADQM.js.map

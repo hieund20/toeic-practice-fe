@@ -1,60 +1,67 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+.page-container {
+  padding: 24px;
 }
 
-.header {
+.top-card {
+  margin-bottom: 20px;
+}
+
+.top-section {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background: #1976d2;
-  color: white;
+  align-items: center;
 }
 
-.main {
+.header-actions {
   display: flex;
-  flex: 1;
+  gap: 16px;
+  align-items: center;
 }
 
-.left {
-  flex: 2;
+.content-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.question-panel {
+  min-height: 600px;
   padding: 20px;
-  border-right: 1px solid #ddd;
 }
 
-.right {
-  flex: 1;
+.answer-panel {
   padding: 20px;
 }
 
-label {
-  display: block;
-  padding: 8px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-  cursor: pointer;
+.group-section {
+  margin-bottom: 20px;
 }
 
-label.selected {
-  background: #e3f2fd;
+.passage {
+  margin-top: 16px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.question-section {
+  margin-top: 20px;
+}
+
+.answer-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8fafc;
 }
 
 .navigator {
   margin-top: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
 }
 
-.navigator button {
-  margin: 2px;
-  width: 40px;
-  height: 40px;
-}
-
-.navigator button.answered {
-  background: #4caf50;
-  color: white;
-}
-
-.navigator button.active {
-  border: 2px solid #1976d2;
+audio {
+  width: 100%;
 }

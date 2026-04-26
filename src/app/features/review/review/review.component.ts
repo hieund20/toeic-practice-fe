@@ -3,16 +3,30 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TestService } from '../../../services/test.service';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
+
 @Component({
   selector: 'app-review',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule,
+    MatChipsModule
+  ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.css',
 })
 export class ReviewComponent implements OnInit {
   data: any;
 
-  constructor(private route: ActivatedRoute, private service: TestService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private service: TestService,
+  ) {}
 
   ngOnInit() {
     const attemptId = this.route.snapshot.paramMap.get('id')!;

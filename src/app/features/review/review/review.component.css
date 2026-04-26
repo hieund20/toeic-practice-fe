@@ -1,15 +1,60 @@
-.question {
+.review-page {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.score-card {
+  margin-bottom: 24px;
+  padding: 20px;
+  text-align: center;
+}
+
+.question-card {
   margin-bottom: 20px;
+  padding: 20px;
+}
+
+.question-header {
+  margin-bottom: 12px;
+}
+
+.question-content {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.answer-list {
+  margin-top: 20px;
+}
+
+.answer-item {
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.answer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .correct {
-  background: #c8e6c9;
+  background: #e8f5e9;
+  border-left: 4px solid #2e7d32;
 }
 
 .wrong {
-  background: #ffcdd2;
+  background: #ffebee;
+  border-left: 4px solid #d32f2f;
 }
 
 .selected {
-  border: 2px solid #1976d2;
+  font-weight: 600;
+}
+
+.answer-status mat-icon {
+  font-size: 22px;
 }

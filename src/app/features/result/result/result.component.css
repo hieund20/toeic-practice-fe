@@ -1,8 +1,64 @@
-button {
-  margin-top: 10px;
-  padding: 10px;
-  background: #1976d2;
-  color: white;
-  border: none;
-  cursor: pointer;
+.result-page {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.result-card {
+  width: 100%;
+  max-width: 700px;
+  padding: 30px;
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.result-header p {
+  color: #64748b;
+}
+
+.score-section {
+  margin: 30px 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.score-text {
+  text-align: center;
+}
+
+.score-text h1 {
+  font-size: 48px;
+  margin: 0;
+  color: #1565c0;
+}
+
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.stat-item p {
+  color: #64748b;
+}
+
+.action-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }

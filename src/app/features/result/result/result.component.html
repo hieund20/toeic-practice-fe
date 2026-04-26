@@ -1,9 +1,54 @@
-<h2>Result</h2>
+<div class="result-page" *ngIf="result">
+  <mat-card class="result-card">
+    <div class="result-header">
+      <h2>Test Result</h2>
+      <p>Your TOEIC practice is complete</p>
+    </div>
 
-<div *ngIf="result">
-  <p>Score: {{ result.score }}</p>
-  <p>Correct: {{ result.correct }}</p>
-  <p>Total: {{ result.total }}</p>
+    <mat-divider></mat-divider>
 
-  <button (click)="goToReview()">Review Answers</button>
+    <!-- Score Section -->
+    <div class="score-section">
+      <mat-progress-spinner
+        mode="determinate"
+        [value]="(result.correct / result.total) * 100"
+        diameter="140"
+      >
+      </mat-progress-spinner>
+
+      <div class="score-text">
+        <h1>{{ result.score }}</h1>
+        <p>TOEIC Score</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Stats -->
+    <div class="stats-section">
+      <div class="stat-item">
+        <h3>{{ result.correct }}</h3>
+        <p>Correct</p>
+      </div>
+
+      <div class="stat-item">
+        <h3>{{ result.total }}</h3>
+        <p>Total Questions</p>
+      </div>
+
+      <div class="stat-item">
+        <h3>{{ ((result.correct / result.total) * 100).toFixed(0) }}%</h3>
+        <p>Accuracy</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Actions -->
+    <div class="action-section">
+      <button mat-raised-button color="primary" (click)="goToReview()">
+        Review Answers
+      </button>
+    </div>
+  </mat-card>
 </div>

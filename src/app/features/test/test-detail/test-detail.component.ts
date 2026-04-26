@@ -3,9 +3,26 @@ import { TestService } from '../../../services/test.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-test-detail',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatRadioModule,
+    MatDividerModule,
+    MatChipsModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './test-detail.component.html',
   styleUrl: './test-detail.component.css',
 })
@@ -19,7 +36,7 @@ export class TestDetailComponent implements OnInit {
   constructor(
     private testService: TestService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
