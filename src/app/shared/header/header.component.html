@@ -1,0 +1,18 @@
+<mat-toolbar class="header-toolbar">
+  <!-- Logo / Title -->
+  <a routerLink="/tests" class="logo">
+    {{ title }}
+  </a>
+
+  <!-- Spacer -->
+  <span class="spacer"></span>
+
+  <!-- User section -->
+  <button mat-icon-button>
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <span *ngIf="userName" class="username">
+    {{ userName }}
+  </span>
+</mat-toolbar>

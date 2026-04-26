@@ -1,0 +1,15 @@
+.question {
+  margin-bottom: 20px;
+}
+
+.correct {
+  background: #c8e6c9;
+}
+
+.wrong {
+  background: #ffcdd2;
+}
+
+.selected {
+  border: 2px solid #1976d2;
+}

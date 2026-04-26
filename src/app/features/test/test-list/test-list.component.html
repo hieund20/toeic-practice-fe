@@ -1,0 +1,30 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>TOEIC Practice Tests</h2>
+    <p>Select a test and start practicing</p>
+  </div>
+
+  <div class="test-grid">
+    <mat-card class="test-card" *ngFor="let t of tests">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>description</mat-icon>
+
+        <mat-card-title>
+          {{ t.title }}
+        </mat-card-title>
+
+        <mat-card-subtitle> Full TOEIC practice test </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>Practice Listening and Reading sections with real exam structure.</p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="startTest(t.id)">
+          Start Test
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

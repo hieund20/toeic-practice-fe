@@ -1,0 +1,9 @@
+<h2>Result</h2>
+
+<div *ngIf="result">
+  <p>Score: {{ result.score }}</p>
+  <p>Correct: {{ result.correct }}</p>
+  <p>Total: {{ result.total }}</p>
+
+  <button (click)="goToReview()">Review Answers</button>
+</div>

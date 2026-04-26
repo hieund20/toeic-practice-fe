@@ -1,0 +1,62 @@
+<div class="container" *ngIf="test">
+  <!-- HEADER -->
+  <div class="header">
+    <h2>{{ test.title }}</h2>
+    <div class="timer">⏱ {{ timeLeft }}</div>
+    <button (click)="submit()">Submit</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- LEFT PANEL -->
+    <div class="left">
+      <ng-container *ngIf="currentQuestion">
+        <!-- GROUP (audio / passage) -->
+        <div *ngIf="currentGroup">
+          <audio
+            *ngIf="currentGroup.audioUrl"
+            controls
+            [src]="currentGroup.audioUrl"
+          ></audio>
+          <p *ngIf="currentGroup.content">{{ currentGroup.content }}</p>
+        </div>
+
+        <!-- QUESTION -->
+        <h3>Question {{ currentIndex + 1 }}</h3>
+        <p>{{ currentQuestion.content }}</p>
+      </ng-container>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right">
+      <!-- ANSWERS -->
+      <div *ngIf="currentQuestion">
+        <div *ngFor="let a of currentQuestion.answers">
+          <label
+            [class.selected]="selectedAnswers[currentQuestion.id] === a.id"
+          >
+            <input
+              type="radio"
+              [name]="currentQuestion.id"
+              [checked]="selectedAnswers[currentQuestion.id] === a.id"
+              (change)="selectAnswer(currentQuestion.id, a.id)"
+            />
+            {{ a.content }}
+          </label>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="navigator">
+        <button
+          *ngFor="let q of flatQuestions; let i = index"
+          [class.answered]="selectedAnswers[q.id]"
+          [class.active]="i === currentIndex"
+          (click)="goTo(i)"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

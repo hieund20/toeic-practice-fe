@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #1976d2;
+  color: white;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.left {
+  flex: 2;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
+
+.right {
+  flex: 1;
+  padding: 20px;
+}
+
+label {
+  display: block;
+  padding: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+label.selected {
+  background: #e3f2fd;
+}
+
+.navigator {
+  margin-top: 20px;
+}
+
+.navigator button {
+  margin: 2px;
+  width: 40px;
+  height: 40px;
+}
+
+.navigator button.answered {
+  background: #4caf50;
+  color: white;
+}
+
+.navigator button.active {
+  border: 2px solid #1976d2;
+}

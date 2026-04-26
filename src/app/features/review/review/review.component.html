@@ -1,0 +1,21 @@
+<div *ngIf="data">
+  <h2>Score: {{ data.score }}</h2>
+
+  <div *ngFor="let q of data.questions" class="question">
+    <p>
+      <b>{{ q.content }}</b>
+    </p>
+
+    <div
+      *ngFor="let a of q.answers"
+      [class.correct]="isCorrect(a)"
+      [class.wrong]="isSelected(q, a) && !isCorrect(a)"
+      [class.selected]="isSelected(q, a)"
+    >
+      {{ a.content }}
+
+      <span *ngIf="isCorrect(a)">✔</span>
+      <span *ngIf="isSelected(q, a) && !isCorrect(a)">✖</span>
+    </div>
+  </div>
+</div>
