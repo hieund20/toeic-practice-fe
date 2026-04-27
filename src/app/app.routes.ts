@@ -3,6 +3,11 @@ import { TestDetailComponent } from './features/test/test-detail/test-detail.com
 import { TestListComponent } from './features/test/test-list/test-list.component';
 import { ResultComponent } from './features/result/result/result.component';
 import { ReviewComponent } from './features/review/review/review.component';
+import { TestManagementComponent } from './features/admin/test-management/test-management.component';
+import { TestFormComponent } from './features/admin/test-form/test-form.component';
+import { TestDetailManagementComponent } from './features/admin/test-detail-management/test-detail-management.component';
+import { QuestionManagementComponent } from './features/admin/question-management/question-management.component';
+import { QuestionFormComponent } from './features/admin/question-form/question-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tests', pathMatch: 'full' },
@@ -16,4 +21,25 @@ export const routes: Routes = [
   // result screen
   { path: 'result', component: ResultComponent },
   { path: 'review/:id', component: ReviewComponent },
+
+  // Admin
+  { path: 'admin/tests', component: TestManagementComponent },
+  { path: 'admin/tests/create', component: TestFormComponent },
+  { path: 'admin/tests/edit/:id', component: TestFormComponent },
+  {
+    path: 'admin/tests/:id/manage',
+    component: TestDetailManagementComponent,
+  },
+  {
+    path: 'admin/parts/:partId/questions',
+    component: QuestionManagementComponent,
+  },
+  {
+    path: 'admin/parts/:partId/questions/create',
+    component: QuestionFormComponent,
+  },
+  {
+    path: 'admin/questions/:id/edit',
+    component: QuestionFormComponent,
+  },
 ];

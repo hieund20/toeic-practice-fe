@@ -1,0 +1,25 @@
+<div class="page-container" *ngIf="test">
+  <h2>Manage: {{ test.title }}</h2>
+
+  <div *ngFor="let part of test.parts">
+    <mat-card class="part-card">
+      <mat-card-title> Part {{ part.partNumber }} </mat-card-title>
+
+      <mat-card-content>
+        <p>Questions: {{ part.questions.length }}</p>
+
+        <p>Groups: {{ part.groups.length }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="manageQuestions(part)"
+        >
+          Manage Questions
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

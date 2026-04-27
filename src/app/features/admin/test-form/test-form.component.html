@@ -1,0 +1,15 @@
+<div class="form-container">
+  <h2>
+    {{ testId ? "Edit Test" : "Create Test" }}
+  </h2>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Test Title</mat-label>
+
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </form>
+</div>
