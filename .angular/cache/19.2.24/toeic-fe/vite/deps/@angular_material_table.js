@@ -6,7 +6,7 @@ import {
   _VIEW_REPEATER_STRATEGY,
   _ViewRepeaterOperation,
   isDataSource
-} from "./chunk-IOK3QSXX.js";
+} from "./chunk-XT5E2744.js";
 import "./chunk-AGZFHLKA.js";
 import {
   RtlScrollAxisType,
@@ -15,13 +15,13 @@ import {
 } from "./chunk-2O4WY5GE.js";
 import {
   MatCommonModule
-} from "./chunk-XSCCV3H7.js";
+} from "./chunk-SIDGVWWV.js";
 import {
   Platform,
   _isNumberValue,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-RMGW3CP3.js";
+} from "./chunk-TMVR36CZ.js";
 import {
   BidiModule,
   Directionality

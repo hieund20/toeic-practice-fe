@@ -56,4 +56,26 @@ export class TestService {
   updateQuestion(id: string, payload: any) {
     return this.http.put(`${this.baseUrl}/questions/${id}`, payload);
   }
+
+  getAnswersByQuestion(questionId: string) {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/answers/question/${questionId}`,
+    );
+  }
+
+  createAnswer(payload: any) {
+    return this.http.post(`${this.baseUrl}/answers`, payload);
+  }
+
+  getAnswerById(id: string) {
+    return this.http.get(`${this.baseUrl}/answers/${id}`);
+  }
+
+  updateAnswer(id: string, payload: any) {
+    return this.http.put(`${this.baseUrl}/answers/${id}`, payload);
+  }
+
+  deleteAnswer(id: string) {
+    return this.http.delete(`${this.baseUrl}/answers/${id}`);
+  }
 }

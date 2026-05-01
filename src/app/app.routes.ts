@@ -8,6 +8,8 @@ import { TestFormComponent } from './features/admin/test-form/test-form.componen
 import { TestDetailManagementComponent } from './features/admin/test-detail-management/test-detail-management.component';
 import { QuestionManagementComponent } from './features/admin/question-management/question-management.component';
 import { QuestionFormComponent } from './features/admin/question-form/question-form.component';
+import { AnswerManagementComponent } from './features/admin/answer-management/answer-management.component';
+import { AnswerFormComponent } from './features/admin/answer-form/answer-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tests', pathMatch: 'full' },
@@ -41,5 +43,17 @@ export const routes: Routes = [
   {
     path: 'admin/questions/:id/edit',
     component: QuestionFormComponent,
+  },
+  {
+    path: 'admin/questions/:questionId/answers',
+    component: AnswerManagementComponent,
+  },
+  {
+    path: 'admin/questions/:questionId/answers/create',
+    component: AnswerFormComponent,
+  },
+  {
+    path: 'admin/answers/:id/edit',
+    component: AnswerFormComponent,
   },
 ];

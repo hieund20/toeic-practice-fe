@@ -4,7 +4,7 @@ import {
   _bindEventWithOptions,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-RMGW3CP3.js";
+} from "./chunk-TMVR36CZ.js";
 import {
   BidiModule
 } from "./chunk-RZ6HCE7E.js";
@@ -3115,8 +3115,6 @@ var MatCommonModule = class _MatCommonModule {
 })();
 
 export {
-  normalizePassiveListenerOptions,
-  _getEventTarget,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
   BACKSPACE,
@@ -3126,6 +3124,8 @@ export {
   UP_ARROW,
   DOWN_ARROW,
   DELETE,
+  _getEventTarget,
+  normalizePassiveListenerOptions,
   FocusMonitor,
   _VisuallyHiddenLoader,
   ObserversModule,
@@ -3134,4 +3134,4 @@ export {
   FocusKeyManager,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-XSCCV3H7.js.map
+//# sourceMappingURL=chunk-SIDGVWWV.js.map

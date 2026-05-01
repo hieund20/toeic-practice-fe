@@ -52,4 +52,8 @@ export class QuestionManagementComponent implements OnInit {
   editQuestion(id: string) {
     this.router.navigate(['/admin/questions', id, 'edit']);
   }
+
+  manageAnswers(questionId: string) {
+    this.router.navigate(['/admin/questions', questionId, 'answers']);
+  }
 }

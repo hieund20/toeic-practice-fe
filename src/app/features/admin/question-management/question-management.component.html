@@ -1,6 +1,6 @@
 <div class="page-container">
   <div class="page-header">
-    <h2>Manage Questions - Part </h2>
+    <h2>Manage Questions - Part</h2>
 
     <button mat-raised-button color="primary" (click)="createQuestion()">
       Create Question
@@ -31,10 +31,12 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
 
       <td mat-cell *matCellDef="let q">
+        <button mat-icon-button color="accent" (click)="manageAnswers(q.id)">
+          <mat-icon>quiz</mat-icon>
+        </button>
         <button mat-icon-button color="primary" (click)="editQuestion(q.id)">
           <mat-icon>edit</mat-icon>
         </button>
-
         <button mat-icon-button color="warn" (click)="deleteQuestion(q.id)">
           <mat-icon>delete</mat-icon>
         </button>

@@ -1,0 +1,56 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Manage Answers</h2>
+
+    <button mat-raised-button color="primary" (click)="createAnswer()">
+      Create Answer
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="answers">
+    <!-- Content -->
+    <ng-container matColumnDef="content">
+      <th mat-header-cell *matHeaderCellDef>Content</th>
+
+      <td mat-cell *matCellDef="let a">
+        {{ a.content }}
+      </td>
+    </ng-container>
+
+    <!-- Correct -->
+    <ng-container matColumnDef="correct">
+      <th mat-header-cell *matHeaderCellDef>Correct</th>
+
+      <td mat-cell *matCellDef="let a">
+        {{ a.isCorrect ? "Yes" : "No" }}
+      </td>
+    </ng-container>
+
+    <!-- Order -->
+    <ng-container matColumnDef="order">
+      <th mat-header-cell *matHeaderCellDef>Order</th>
+
+      <td mat-cell *matCellDef="let a">
+        {{ a.answerOrder }}
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+
+      <td mat-cell *matCellDef="let a">
+        <button mat-icon-button color="primary" (click)="editAnswer(a.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="warn" (click)="deleteAnswer(a.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
