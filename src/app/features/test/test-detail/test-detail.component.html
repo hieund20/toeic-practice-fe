@@ -46,6 +46,23 @@
         <div class="question-section">
           <h3>Question {{ currentIndex + 1 }}</h3>
 
+          <!-- Question Audio -->
+          <audio
+            *ngIf="currentQuestion.audioUrl"
+            controls
+            [src]="currentQuestion.audioUrl"
+            class="question-audio"
+          ></audio>
+
+          <!-- Question Image -->
+          <img
+            *ngIf="currentQuestion.imageUrl"
+            [src]="currentQuestion.imageUrl"
+            alt="Question image"
+            class="question-image"
+          />
+
+          <!-- Question Content -->
           <p>
             {{ currentQuestion.content }}
           </p>

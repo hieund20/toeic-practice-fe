@@ -78,4 +78,18 @@ export class TestService {
   deleteAnswer(id: string) {
     return this.http.delete(`${this.baseUrl}/answers/${id}`);
   }
+
+  uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post<any>(`${this.baseUrl}/upload/image`, formData);
+  }
+
+  uploadAudio(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post<any>(`${this.baseUrl}/upload/audio`, formData);
+  }
 }

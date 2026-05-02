@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,6 +29,9 @@ export class QuestionFormComponent implements OnInit {
 
   partId?: string;
   questionId?: string;
+
+  isUploadingImage = false;
+  isUploadingAudio = false;
 
   constructor(
     private fb: FormBuilder,
@@ -51,6 +59,7 @@ export class QuestionFormComponent implements OnInit {
 
   loadQuestion() {
     this.testService.getQuestionById(this.questionId!).subscribe((res: any) => {
+      this.partId = res.testPartId;
       this.form.patchValue(res);
     });
   }
@@ -75,6 +84,47 @@ export class QuestionFormComponent implements OnInit {
   }
 
   goBack() {
+    console.log(this.partId);
+    if (!this.partId) return;
+
     this.router.navigate(['/admin/parts', this.partId, 'questions']);
+  }
+
+  uploadImage(event: any) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    this.isUploadingImage = true;
+
+    this.testService.uploadImage(file).subscribe({
+      next: (res: any) => {
+        this.form.patchValue({
+          imageUrl: res.url,
+        });
+      },
+      complete: () => {
+        this.isUploadingImage = false;
+      },
+    });
+  }
+
+  uploadAudio(event: any) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    this.isUploadingAudio = true;
+
+    this.testService.uploadAudio(file).subscribe({
+      next: (res: any) => {
+        this.form.patchValue({
+          audioUrl: res.url,
+        });
+      },
+      complete: () => {
+        this.isUploadingAudio = false;
+      },
+    });
   }
 }

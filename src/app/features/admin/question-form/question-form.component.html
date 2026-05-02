@@ -4,33 +4,58 @@
   </h2>
 
   <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+    <!-- Content -->
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Question Content</mat-label>
+
       <textarea matInput formControlName="content"> </textarea>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <!-- Question order -->
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Question Order</mat-label>
+
       <input matInput type="number" formControlName="questionOrder" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Audio URL</mat-label>
-      <input matInput formControlName="audioUrl" />
-    </mat-form-field>
+    <!-- Upload image -->
+    <div class="upload-section">
+      <label>Upload Image</label>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Image URL</mat-label>
-      <input matInput formControlName="imageUrl" />
-    </mat-form-field>
+      <input type="file" accept="image/*" (change)="uploadImage($event)" />
+    </div>
 
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="form.invalid"
-      (click)="save()"
-    >
-      Save
-    </button>
+    <!-- Image preview -->
+    <img
+      *ngIf="form.value.imageUrl"
+      [src]="form.value.imageUrl"
+      class="preview-image"
+    />
+
+    <!-- Upload audio -->
+    <div class="upload-section">
+      <label>Upload Audio</label>
+
+      <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
+    </div>
+
+    <!-- Audio preview -->
+    <audio
+      *ngIf="form.value.audioUrl"
+      controls
+      [src]="form.value.audioUrl"
+    ></audio>
+
+    <!-- Save -->
+    <div class="actions">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || isUploadingImage || isUploadingAudio"
+        (click)="save()"
+      >
+        {{ isUploadingImage || isUploadingAudio ? "Uploading..." : "Save" }}
+      </button>
+    </div>
   </form>
 </div>
