@@ -74,12 +74,12 @@
     <mat-card class="answer-panel">
       <!-- Answer options -->
       <div *ngIf="currentQuestion">
-        <mat-radio-group>
+        <mat-radio-group
+          [value]="selectedAnswers[currentQuestion.id]"
+          (change)="selectAnswer(currentQuestion.id, $event.value)"
+        >
           <div *ngFor="let a of currentQuestion.answers" class="answer-item">
-            <mat-radio-button
-              [checked]="selectedAnswers[currentQuestion.id] === a.id"
-              (change)="selectAnswer(currentQuestion.id, a.id)"
-            >
+            <mat-radio-button [value]="a.id">
               {{ a.content }}
             </mat-radio-button>
           </div>
