@@ -32,4 +32,8 @@ export class TestDetailManagementComponent implements OnInit {
     console.log(part);
     this.router.navigate(['/admin/parts', part.id, 'questions']);
   }
+
+  createPart() {
+    this.router.navigate(['/admin/tests', this.test.id, 'parts', 'create']);
+  }
 }

@@ -1,5 +1,13 @@
 <div class="page-container" *ngIf="test">
-  <h2>Manage: {{ test.title }}</h2>
+  <div class="page-header">
+    <h2>Manage: {{ test.title }}</h2>
+
+    <button mat-raised-button color="primary" (click)="createPart()">
+      Create Part
+    </button>
+  </div>
+
+  <div *ngIf="test.parts.length === 0">No parts yet. Create one.</div>
 
   <div *ngFor="let part of test.parts">
     <mat-card class="part-card">
@@ -7,7 +15,6 @@
 
       <mat-card-content>
         <p>Questions: {{ part.questions.length }}</p>
-
         <p>Groups: {{ part.groups.length }}</p>
       </mat-card-content>
 

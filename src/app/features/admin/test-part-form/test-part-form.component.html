@@ -1,0 +1,22 @@
+<div class="form-container">
+  <h2>
+    {{ partId ? "Edit Test Part" : "Create Test Part" }}
+  </h2>
+
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Part Number</mat-label>
+
+      <input matInput type="number" formControlName="partNumber" />
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="form.invalid"
+      (click)="save()"
+    >
+      Save
+    </button>
+  </form>
+</div>

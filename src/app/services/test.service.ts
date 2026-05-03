@@ -92,4 +92,16 @@ export class TestService {
 
     return this.http.post<any>(`${this.baseUrl}/upload/audio`, formData);
   }
+
+  createPart(payload: any) {
+    return this.http.post(`${this.baseUrl}/test-parts`, payload);
+  }
+
+  getPartById(id: string) {
+    return this.http.get(`${this.baseUrl}/test-parts/${id}`);
+  }
+
+  updatePart(id: string, payload: any) {
+    return this.http.put(`${this.baseUrl}/test-parts/${id}`, payload);
+  }
 }
