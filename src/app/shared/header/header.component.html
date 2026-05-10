@@ -6,14 +6,24 @@
 
   <span class="spacer"></span>
 
-  <a mat-button routerLink="/admin/tests"> Admin </a>
+  <a *ngIf="authService.isAdmin()" mat-button routerLink="/admin/tests">
+    Admin
+  </a>
 
-  <!-- User section -->
-  <button mat-icon-button>
+  <!-- User menu trigger -->
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
     <mat-icon>account_circle</mat-icon>
   </button>
 
-  <span *ngIf="userName" class="username">
+  <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="userName">
     {{ userName }}
-  </span>
+  </button>
+
+  <!-- Dropdown menu -->
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

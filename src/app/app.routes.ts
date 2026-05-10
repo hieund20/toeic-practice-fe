@@ -11,6 +11,8 @@ import { QuestionFormComponent } from './features/admin/question-form/question-f
 import { AnswerManagementComponent } from './features/admin/answer-management/answer-management.component';
 import { AnswerFormComponent } from './features/admin/answer-form/answer-form.component';
 import { TestPartFormComponent } from './features/admin/test-part-form/test-part-form.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'tests', pathMatch: 'full' },
@@ -64,5 +66,13 @@ export const routes: Routes = [
   {
     path: 'admin/parts/:id/edit',
     component: TestPartFormComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
 ];
