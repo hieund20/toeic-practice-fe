@@ -1,15 +1,12 @@
-.page-container {
-  padding: 24px;
-}
-
-.top-card {
-  margin-bottom: 20px;
-}
-
 .top-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.app-card:hover {
+  transform: none;
+  box-shadow: var(--card-shadow) !important;
 }
 
 .header-actions {
@@ -22,6 +19,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
+  margin-top: 16px;
 }
 
 .question-panel {

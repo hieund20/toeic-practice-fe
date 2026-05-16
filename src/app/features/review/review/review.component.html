@@ -1,6 +1,6 @@
-<div class="review-page" *ngIf="data">
+<div class="page-container" *ngIf="data">
   <!-- Score Summary -->
-  <mat-card class="score-card">
+  <mat-card class="app-card">
     <h2>Review Answers</h2>
 
     <mat-chip color="primary"> Score: {{ data.score }} </mat-chip>
@@ -8,7 +8,7 @@
 
   <!-- Question List -->
   <div *ngFor="let q of data.questions; let i = index">
-    <mat-card class="question-card">
+    <mat-card class="app-card">
       <!-- Question Header -->
       <div class="question-header">
         <h3>Question {{ i + 1 }}</h3>

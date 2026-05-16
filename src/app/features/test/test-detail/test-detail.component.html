@@ -1,6 +1,6 @@
 <div class="page-container" *ngIf="test">
   <!-- HEADER -->
-  <mat-card class="top-card">
+  <mat-card class="app-card">
     <div class="top-section">
       <div>
         <h2>{{ test.title }}</h2>
@@ -26,7 +26,7 @@
   <!-- MAIN CONTENT -->
   <div class="content-layout">
     <!-- LEFT PANEL -->
-    <mat-card class="question-panel">
+    <mat-card class="app-card">
       <ng-container *ngIf="currentQuestion">
         <!-- Group Content -->
         <div *ngIf="currentGroup" class="group-section">
@@ -71,7 +71,7 @@
     </mat-card>
 
     <!-- RIGHT PANEL -->
-    <mat-card class="answer-panel">
+    <mat-card class="app-card">
       <!-- Answer options -->
       <div *ngIf="currentQuestion">
         <mat-radio-group

@@ -1,8 +1,7 @@
 .footer-toolbar {
   height: 56px;
-  background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary-light));
   color: white;
-
   font-size: 14px;
 }
 

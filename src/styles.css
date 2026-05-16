@@ -3,21 +3,141 @@
 html,
 body {
   height: 100%;
-  background: #f8fafc;
-  color: #1e293b;
   margin: 0;
-  font-family: Roboto, sans-serif;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  background: var(--background-color);
+  color: var(--text-primary);
+
+  font-family: Inter, Roboto, "Helvetica Neue", sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-button.primary {
-  background: #1565c0;
-  color: white;
+* {
+  box-sizing: border-box;
 }
 
-button.primary:hover {
-  background: #0d47a1;
+.primary-btn {
+  border-radius: 12px !important;
+
+  font-weight: 600 !important;
+
+  padding: 0 20px !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mdc-text-field--outlined {
+  border-radius: 14px !important;
+}
+
+.page-container {
+  padding: 32px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+table {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.mat-mdc-table {
+  background: white !important;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow: var(--card-shadow);
+}
+
+.app-card {
+  background: var(--surface-color) !important;
+
+  border-radius: var(--radius-lg);
+
+  padding: 24px;
+
+  box-shadow: var(--card-shadow);
+
+  transition: all 0.2s ease;
+
+  border: 1px solid var(--border-color);
+}
+
+.app-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: var(--hover-shadow);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+button,
+a,
+.mat-mdc-card {
+  transition: all 0.2s ease;
+}
+
+:root {
+  /* Primary */
+  --primary-color: #2563eb;
+  --primary-light: #3b82f6;
+  --primary-dark: #1d4ed8;
+
+  /* Accent */
+  --accent-color: #06b6d4;
+
+  /* Background */
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  /* Border */
+  --border-color: #e2e8f0;
+
+  /* Success */
+  --success-color: #10b981;
+
+  /* Error */
+  --error-color: #ef4444;
+
+  /* Shadow */
+  --card-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+
+  --hover-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+
+  /* Radius */
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
 }

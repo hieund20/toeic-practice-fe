@@ -1,18 +1,11 @@
-.review-page {
-  padding: 24px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.score-card {
+.app-card {
   margin-bottom: 24px;
-  padding: 20px;
   text-align: center;
 }
 
-.question-card {
-  margin-bottom: 20px;
-  padding: 20px;
+.app-card:hover {
+  transform: none;
+  box-shadow: var(--card-shadow);
 }
 
 .question-header {

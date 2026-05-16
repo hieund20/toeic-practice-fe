@@ -4,17 +4,19 @@
   z-index: 1000;
   background: linear-gradient(
     90deg,
-    #1565C0 0%,
-    #42A5F5 100%
-  );
+    var(--primary-dark),
+    var(--primary-light)
+  ) !important;
+
   color: white;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
 }
 
 .logo {
+  font-size: 24px;
+  font-weight: 700;
   text-decoration: none;
   color: white;
-  font-size: 22px;
-  font-weight: 600;
 }
 
 .spacer {
