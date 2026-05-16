@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-test-detail',
@@ -37,6 +38,7 @@ export class TestDetailComponent implements OnInit {
     private testService: TestService,
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -70,9 +72,11 @@ export class TestDetailComponent implements OnInit {
   }
 
   submit() {
+    const userId = this.authService.getUserId();
+
     const payload = {
       testId: this.test.id,
-      userId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      userId: userId,
       answers: Object.keys(this.selectedAnswers).map((qId) => ({
         questionId: qId,
         selectedAnswerId: this.selectedAnswers[qId],

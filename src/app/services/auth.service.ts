@@ -21,9 +21,10 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, payload);
   }
 
-  saveAuth(token: string, role: string) {
+  saveAuth(token: string, role: string, userId: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
+    localStorage.setItem('userId', userId);
   }
 
   getToken() {
@@ -45,5 +46,9 @@ export class AuthService {
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  getUserId() {
+    return localStorage.getItem('userId');
   }
 }

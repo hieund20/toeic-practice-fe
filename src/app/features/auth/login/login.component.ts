@@ -38,7 +38,7 @@ export class LoginComponent {
     if (this.form.invalid) return;
 
     this.authService.login(this.form.value).subscribe((res: any) => {
-      this.authService.saveAuth(res.token, res.role);
+      this.authService.saveAuth(res.token, res.role, res.userId);
 
       if (res.role === 'ADMIN') {
         this.router.navigate(['/admin/tests']);

@@ -1,18 +1,18 @@
 import {
   _CdkPrivateStyleLoader,
   _bindEventWithOptions
-} from "./chunk-MMZTQ5N2.js";
+} from "./chunk-KHZMXGML.js";
 import {
   Platform,
   coerceElement,
   coerceNumberProperty
-} from "./chunk-7Z3SGFI4.js";
+} from "./chunk-SRLRO7J3.js";
 import {
   BidiModule
-} from "./chunk-EI3BOPNS.js";
+} from "./chunk-GRPJQ6OG.js";
 import {
   DOCUMENT
-} from "./chunk-Z2LDXI5B.js";
+} from "./chunk-A4XEEM67.js";
 import {
   APP_ID,
   BehaviorSubject,
@@ -62,7 +62,7 @@ import {
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-24WJ5VRU.js";
+} from "./chunk-62M3LKV5.js";
 
 // node_modules/@angular/cdk/fesm2022/fake-event-detection-DWOdFTFz.mjs
 function isFakeMousedownFromScreenReader(event) {
@@ -3133,12 +3133,14 @@ export {
   _getEventTarget,
   normalizePassiveListenerOptions,
   FocusMonitor,
+  CdkMonitorFocus,
   _VisuallyHiddenLoader,
   coerceArray,
+  CdkObserveContent,
   ObserversModule,
   _IdGenerator,
   hasModifierKey,
   FocusKeyManager,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-OUZBF7D4.js.map
+//# sourceMappingURL=chunk-2GY457MW.js.map
