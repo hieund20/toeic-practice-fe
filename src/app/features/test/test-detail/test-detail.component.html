@@ -8,7 +8,7 @@
       </div>
 
       <div class="header-actions">
-        <mat-chip> ⏱ {{ timeLeft }} </mat-chip>
+        <mat-chip> ⏱ {{ formattedTime }} </mat-chip>
 
         <button mat-raised-button color="primary" (click)="submit()">
           Submit
@@ -89,15 +89,21 @@
       <mat-divider></mat-divider>
 
       <!-- Navigator -->
-      <div class="navigator">
-        <button
-          mat-stroked-button
-          *ngFor="let q of flatQuestions; let i = index"
-          [color]="i === currentIndex ? 'primary' : ''"
-          (click)="goTo(i)"
-        >
-          {{ i + 1 }}
-        </button>
+      <div class="part-block" *ngFor="let part of partNavigators">
+        <div class="part-title">PART {{ part.partNumber }}</div>
+        <div class="question-grid">
+          <button
+            mat-stroked-button
+            *ngFor="let item of part.items"
+            [ngClass]="{
+              'current-question': item.index === currentIndex,
+              'answered-question': selectedAnswers[item.questionId],
+            }"
+            (click)="goTo(item.index)"
+          >
+            {{ item.displayNumber }}
+          </button>
+        </div>
       </div>
     </mat-card>
   </div>

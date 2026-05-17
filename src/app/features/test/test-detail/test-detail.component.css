@@ -45,6 +45,22 @@
   margin-top: 20px;
 }
 
+.question-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 10px;
+}
+
+.question-grid button {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 12px !important;
+  font-weight: 600;
+  padding: 0 !important;
+  transition: all 0.2s ease;
+}
+
 .answer-item {
   margin-bottom: 16px;
   padding: 12px;
@@ -53,11 +69,31 @@
 }
 
 .navigator {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+.part-block {
+  padding: 16px;
+}
+
+.part-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.current-question {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+.answered-question {
+  background: #dbeafe !important;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-dark) !important;
 }
 
 audio {

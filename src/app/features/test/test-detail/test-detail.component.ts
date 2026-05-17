@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-test-detail',
@@ -27,18 +28,23 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './test-detail.component.html',
   styleUrl: './test-detail.component.css',
 })
-export class TestDetailComponent implements OnInit {
+export class TestDetailComponent implements OnInit, OnDestroy {
   test: any;
   selectedAnswers: any = {};
   flatQuestions: any[] = [];
   currentIndex = 0;
   timeLeft = 120 * 60; // 120 minutes
+  partNavigators: any[] = [];
+
+  timer: any;
+  formattedTime = '02:00:00';
+  isSubmitting = false;
 
   constructor(
     private testService: TestService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -62,6 +68,8 @@ export class TestDetailComponent implements OnInit {
           });
         });
       });
+
+      this.buildPartNavigator();
     });
 
     this.startTimer();
@@ -72,8 +80,12 @@ export class TestDetailComponent implements OnInit {
   }
 
   submit() {
-    const userId = this.authService.getUserId();
+    if (this.isSubmitting) {
+      return;
+    }
+    this.isSubmitting = true;
 
+    const userId = this.authService.getUserId();
     const payload = {
       testId: this.test.id,
       userId: userId,
@@ -84,6 +96,7 @@ export class TestDetailComponent implements OnInit {
     };
 
     this.testService.submit(payload).subscribe((res: any) => {
+      clearInterval(this.timer);
       // navigate to result page
       this.router.navigate(['/result'], { state: res });
     });
@@ -102,12 +115,78 @@ export class TestDetailComponent implements OnInit {
   }
 
   startTimer() {
-    setInterval(() => {
+    this.updateFormattedTime();
+
+    this.timer = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
+
+        this.updateFormattedTime();
       } else {
-        this.submit();
+        clearInterval(this.timer);
+
+        if (!this.isSubmitting) {
+          this.submit();
+        }
       }
     }, 1000);
+  }
+
+  buildPartNavigator(): void {
+    let globalIndex = 0;
+
+    this.partNavigators = this.test.parts.map((part: any) => {
+      const items: any[] = [];
+
+      // normal questions
+      part.questions.forEach((q: any) => {
+        items.push({
+          questionId: q.id,
+          displayNumber: globalIndex + 1,
+          index: globalIndex,
+        });
+
+        globalIndex++;
+      });
+
+      // grouped questions
+      part.groups.forEach((g: any) => {
+        g.questions.forEach((q: any) => {
+          items.push({
+            questionId: q.id,
+            displayNumber: globalIndex + 1,
+            index: globalIndex,
+          });
+
+          globalIndex++;
+        });
+      });
+
+      return {
+        partNumber: part.partNumber,
+        items,
+      };
+    });
+  }
+
+  updateFormattedTime(): void {
+    const hours = Math.floor(this.timeLeft / 3600);
+
+    const minutes = Math.floor((this.timeLeft % 3600) / 60);
+
+    const seconds = this.timeLeft % 60;
+
+    this.formattedTime =
+      `${this.pad(hours)}:` + `${this.pad(minutes)}:` + `${this.pad(seconds)}`;
+  }
+
+  pad(value: number): string {
+    return value.toString().padStart(2, '0');
+  }
+
+  ngOnDestroy(): void {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
   }
 }
