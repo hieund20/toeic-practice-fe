@@ -1,6 +1,8 @@
 <div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+  
   <div class="page-header">
-    <h2>Manage Tests</h2>
+    <h2 class="page-title">Manage Tests</h2>
 
     <button mat-raised-button color="primary" (click)="createTest()">
       Create Test

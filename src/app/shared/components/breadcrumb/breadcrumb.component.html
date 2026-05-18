@@ -1,0 +1,16 @@
+<nav class="breadcrumb">
+  <ng-container *ngFor="let item of items; let last = last">
+    <!-- Link item -->
+    <a *ngIf="!last" [routerLink]="item.link">
+      {{ item.label }}
+    </a>
+
+    <!-- Current page -->
+    <span *ngIf="last" class="active">
+      {{ item.label }}
+    </span>
+
+    <!-- Separator -->
+    <mat-icon *ngIf="!last"> chevron_right </mat-icon>
+  </ng-container>
+</nav>

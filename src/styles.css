@@ -41,7 +41,7 @@ body {
 .page-title {
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .page-subtitle {
@@ -67,15 +67,10 @@ table {
 
 .app-card {
   background: var(--surface-color) !important;
-
   border-radius: var(--radius-lg);
-
   padding: 24px;
-
   box-shadow: var(--card-shadow);
-
   transition: all 0.2s ease;
-
   border: 1px solid var(--border-color);
 }
 
@@ -103,6 +98,30 @@ button,
 a,
 .mat-mdc-card {
   transition: all 0.2s ease;
+}
+
+.cdk-overlay-pane .mat-mdc-menu-panel {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.16) !important;
+  border: 1px solid var(--border-color) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(12px);
+}
+
+.mat-mdc-menu-item {
+  min-height: 48px !important;
+  font-weight: 500 !important;
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background: rgba(37, 99, 235, 0.08) !important;
+}
+
+.mat-mdc-tab-group {
+  --mdc-tab-indicator-active-indicator-color: var(--primary-color);
+  --mat-tab-header-active-label-text-color: var(--primary-color);
 }
 
 :root {

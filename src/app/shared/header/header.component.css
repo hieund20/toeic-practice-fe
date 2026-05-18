@@ -27,3 +27,27 @@
   margin-left: 8px;
   font-size: 14px;
 }
+
+.header-toolbar {
+  background: linear-gradient(
+    90deg,
+    var(--primary-dark),
+    var(--primary-light)
+  ) !important;
+
+  color: white;
+
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.2);
+  padding: 0 20px;
+}
+
+.header-toolbar a,
+.header-toolbar button,
+.header-toolbar mat-icon {
+  color: white !important;
+}
+
+.header-toolbar a:hover,
+.header-toolbar button:hover {
+  opacity: 0.9;
+}

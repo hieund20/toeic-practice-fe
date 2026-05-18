@@ -5,10 +5,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
+import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-question-management',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    BreadcrumbComponent,
+  ],
   templateUrl: './question-management.component.html',
   styleUrl: './question-management.component.css',
 })
@@ -18,6 +25,9 @@ export class QuestionManagementComponent implements OnInit {
 
   displayedColumns = ['content', 'order', 'actions'];
 
+  breadcrumbs: any[] = [];
+  testId!: string;
+
   constructor(
     private route: ActivatedRoute,
     private testService: TestService,
@@ -25,6 +35,10 @@ export class QuestionManagementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.testId = this.route.snapshot.paramMap.get('id')!;
+
+    this.buildBreadcrumbs();
+
     this.partId = this.route.snapshot.paramMap.get('partId')!;
     this.loadQuestions();
   }
@@ -55,5 +69,29 @@ export class QuestionManagementComponent implements OnInit {
 
   manageAnswers(questionId: string) {
     this.router.navigate(['/admin/questions', questionId, 'answers']);
+  }
+
+  buildBreadcrumbs(): void {
+    this.breadcrumbs = [
+      {
+        label: 'Home',
+        link: '/tests',
+      },
+      {
+        label: 'Admin',
+        link: '/admin/tests',
+      },
+      {
+        label: 'Manage Tests',
+        link: '/admin/tests',
+      },
+      {
+        label: 'Manage Parts',
+        link: `/admin/tests/${this.testId}/manage`,
+      },
+      {
+        label: 'Manage Questions',
+      },
+    ];
   }
 }

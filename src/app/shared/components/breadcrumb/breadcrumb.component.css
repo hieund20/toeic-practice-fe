@@ -1,0 +1,29 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--primary-color);
+}
+
+.breadcrumb .active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.breadcrumb mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+}

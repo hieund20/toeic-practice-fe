@@ -1,6 +1,8 @@
 <div class="page-container" *ngIf="test">
+  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+
   <div class="page-header">
-    <h2>Manage: {{ test.title }}</h2>
+    <h2 class="page-title">Manage: {{ test.title }}</h2>
 
     <button mat-raised-button color="primary" (click)="createPart()">
       Create Part
@@ -10,7 +12,7 @@
   <div *ngIf="test.parts.length === 0">No parts yet. Create one.</div>
 
   <div *ngFor="let part of test.parts">
-    <mat-card class="part-card">
+    <mat-card class="app-card">
       <mat-card-title> Part {{ part.partNumber }} </mat-card-title>
 
       <mat-card-content>

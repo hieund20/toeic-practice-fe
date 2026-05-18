@@ -1,0 +1,14 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-card {
+  margin-bottom: 16px;
+}
+
+.app-card:hover {
+  transform: none;
+  box-shadow: none;
+}

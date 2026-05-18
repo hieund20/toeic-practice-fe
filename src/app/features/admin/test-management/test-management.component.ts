@@ -5,10 +5,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
+import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-test-management',
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    BreadcrumbComponent,
+  ],
   templateUrl: './test-management.component.html',
   styleUrl: './test-management.component.css',
 })
@@ -16,6 +23,20 @@ export class TestManagementComponent implements OnInit {
   tests: any[] = [];
 
   displayedColumns = ['title', 'actions'];
+
+  breadcrumbs = [
+    {
+      label: 'Home',
+      link: '/tests',
+    },
+    {
+      label: 'Admin',
+      link: '/admin/tests',
+    },
+    {
+      label: 'Manage Tests',
+    },
+  ];
 
   constructor(
     private testService: TestService,
