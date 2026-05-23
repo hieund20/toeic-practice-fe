@@ -1,61 +1,63 @@
-<div class="form-container">
-  <h2>
+<div class="page-container">
+  <h2 class="page-title">
     {{ questionId ? "Edit Question" : "Create Question" }}
   </h2>
 
-  <form [formGroup]="form">
-    <!-- Content -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Question Content</mat-label>
+  <div class="app-card">
+    <form [formGroup]="form">
+      <!-- Content -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Question Content</mat-label>
 
-      <textarea matInput formControlName="content"> </textarea>
-    </mat-form-field>
+        <textarea matInput formControlName="content"> </textarea>
+      </mat-form-field>
 
-    <!-- Question order -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Question Order</mat-label>
+      <!-- Question order -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Question Order</mat-label>
 
-      <input matInput type="number" formControlName="questionOrder" />
-    </mat-form-field>
+        <input matInput type="number" formControlName="questionOrder" />
+      </mat-form-field>
 
-    <!-- Upload image -->
-    <div class="upload-section">
-      <label>Upload Image</label>
+      <!-- Upload image -->
+      <div class="upload-section">
+        <label>Upload Image</label>
 
-      <input type="file" accept="image/*" (change)="uploadImage($event)" />
-    </div>
+        <input type="file" accept="image/*" (change)="uploadImage($event)" />
+      </div>
 
-    <!-- Image preview -->
-    <img
-      *ngIf="form.value.imageUrl"
-      [src]="form.value.imageUrl"
-      class="preview-image"
-    />
+      <!-- Image preview -->
+      <img
+        *ngIf="form.value.imageUrl"
+        [src]="form.value.imageUrl"
+        class="preview-image"
+      />
 
-    <!-- Upload audio -->
-    <div class="upload-section">
-      <label>Upload Audio</label>
+      <!-- Upload audio -->
+      <div class="upload-section">
+        <label>Upload Audio</label>
 
-      <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
-    </div>
+        <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
+      </div>
 
-    <!-- Audio preview -->
-    <audio
-      *ngIf="form.value.audioUrl"
-      controls
-      [src]="form.value.audioUrl"
-    ></audio>
+      <!-- Audio preview -->
+      <audio
+        *ngIf="form.value.audioUrl"
+        controls
+        [src]="form.value.audioUrl"
+      ></audio>
 
-    <!-- Save -->
-    <div class="actions">
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="form.invalid || isUploadingImage || isUploadingAudio"
-        (click)="save()"
-      >
-        {{ isUploadingImage || isUploadingAudio ? "Uploading..." : "Save" }}
-      </button>
-    </div>
-  </form>
+      <!-- Save -->
+      <div class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid || isUploadingImage || isUploadingAudio"
+          (click)="save()"
+        >
+          {{ isUploadingImage || isUploadingAudio ? "Uploading..." : "Save" }}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

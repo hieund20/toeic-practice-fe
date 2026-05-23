@@ -57,8 +57,8 @@ export class TestManagementComponent implements OnInit {
     this.router.navigate(['/admin/tests/create']);
   }
 
-  editTest(id: string) {
-    this.router.navigate(['/admin/tests/edit', id]);
+  editTest(testId: string) {
+    this.router.navigate(['/admin/tests', testId, 'edit']);
   }
 
   deleteTest(id: string) {
@@ -67,7 +67,7 @@ export class TestManagementComponent implements OnInit {
     });
   }
 
-  manageTest(id: string) {
-    this.router.navigate(['/admin/tests', id, 'manage']);
+  manageTest(testId: string) {
+    this.router.navigate(['/admin/tests', testId, 'parts']);
   }
 }

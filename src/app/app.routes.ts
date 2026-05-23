@@ -15,58 +15,12 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 
 export const routes: Routes = [
+  //Public
   { path: '', redirectTo: 'tests', pathMatch: 'full' },
-
-  // list all tests
   { path: 'tests', component: TestListComponent },
-
-  // do a test
   { path: 'tests/:id', component: TestDetailComponent },
-
-  // result screen
   { path: 'result', component: ResultComponent },
   { path: 'review/:id', component: ReviewComponent },
-
-  // Admin
-  { path: 'admin/tests', component: TestManagementComponent },
-  { path: 'admin/tests/create', component: TestFormComponent },
-  { path: 'admin/tests/edit/:id', component: TestFormComponent },
-  {
-    path: 'admin/tests/:id/manage',
-    component: TestDetailManagementComponent,
-  },
-  {
-    path: 'admin/parts/:partId/questions',
-    component: QuestionManagementComponent,
-  },
-  {
-    path: 'admin/parts/:partId/questions/create',
-    component: QuestionFormComponent,
-  },
-  {
-    path: 'admin/questions/:id/edit',
-    component: QuestionFormComponent,
-  },
-  {
-    path: 'admin/questions/:questionId/answers',
-    component: AnswerManagementComponent,
-  },
-  {
-    path: 'admin/questions/:questionId/answers/create',
-    component: AnswerFormComponent,
-  },
-  {
-    path: 'admin/answers/:id/edit',
-    component: AnswerFormComponent,
-  },
-  {
-    path: 'admin/tests/:testId/parts/create',
-    component: TestPartFormComponent,
-  },
-  {
-    path: 'admin/parts/:id/edit',
-    component: TestPartFormComponent,
-  },
   {
     path: 'login',
     component: LoginComponent,
@@ -81,5 +35,45 @@ export const routes: Routes = [
       import('./pages/profile/profile.component').then(
         (m) => m.ProfileComponent,
       ),
+  },
+  // Admin
+  { path: 'admin/tests', component: TestManagementComponent },
+  { path: 'admin/tests/create', component: TestFormComponent },
+  { path: 'admin/tests/:testId/edit', component: TestFormComponent },
+  {
+    path: 'admin/tests/:testId/parts',
+    component: TestDetailManagementComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/create',
+    component: TestPartFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/edit',
+    component: TestPartFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/questions',
+    component: QuestionManagementComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/questions/create',
+    component: QuestionFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/questions/:questionId/edit',
+    component: QuestionFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/questions/:questionId/answers',
+    component: AnswerManagementComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/questions/:questionId/answers/create',
+    component: AnswerFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/questions/:questionId/answers/:answerId/edit',
+    component: AnswerFormComponent,
   },
 ];

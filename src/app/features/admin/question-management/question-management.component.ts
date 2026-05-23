@@ -35,11 +35,10 @@ export class QuestionManagementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.testId = this.route.snapshot.paramMap.get('id')!;
+    this.testId = this.route.snapshot.paramMap.get('testId')!;
+    this.partId = this.route.snapshot.paramMap.get('partId')!;
 
     this.buildBreadcrumbs();
-
-    this.partId = this.route.snapshot.paramMap.get('partId')!;
     this.loadQuestions();
   }
 
@@ -60,15 +59,38 @@ export class QuestionManagementComponent implements OnInit {
   }
 
   createQuestion() {
-    this.router.navigate(['/admin/parts', this.partId, 'questions', 'create']);
+    this.router.navigate([
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
+      'create',
+    ]);
   }
 
-  editQuestion(id: string) {
-    this.router.navigate(['/admin/questions', id, 'edit']);
+  editQuestion(questionId: string) {
+    this.router.navigate([
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
+      questionId,
+      'edit',
+    ]);
   }
 
   manageAnswers(questionId: string) {
-    this.router.navigate(['/admin/questions', questionId, 'answers']);
+    this.router.navigate([
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
+      questionId,
+      'answers',
+    ]);
   }
 
   buildBreadcrumbs(): void {
@@ -87,7 +109,7 @@ export class QuestionManagementComponent implements OnInit {
       },
       {
         label: 'Manage Parts',
-        link: `/admin/tests/${this.testId}/manage`,
+        link: `/admin/tests/${this.testId}/parts`,
       },
       {
         label: 'Manage Questions',

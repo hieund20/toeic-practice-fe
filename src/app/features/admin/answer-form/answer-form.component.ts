@@ -49,7 +49,7 @@ export class AnswerFormComponent implements OnInit {
     this.questionId =
       this.route.snapshot.paramMap.get('questionId') || undefined;
 
-    this.answerId = this.route.snapshot.paramMap.get('id') || undefined;
+    this.answerId = this.route.snapshot.paramMap.get('answerId') || undefined;
 
     if (this.answerId) {
       this.loadAnswer();

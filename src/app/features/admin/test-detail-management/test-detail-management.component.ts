@@ -40,16 +40,21 @@ export class TestDetailManagementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const testId = this.route.snapshot.paramMap.get('testId')!;
 
-    this.testService.getTest(id).subscribe((res) => {
+    this.testService.getTest(testId).subscribe((res) => {
       this.test = res;
     });
   }
 
   manageQuestions(part: any) {
-    console.log(part);
-    this.router.navigate(['/admin/parts', part.id, 'questions']);
+    this.router.navigate([
+      '/admin/tests',
+      this.test.id,
+      'parts',
+      part.id,
+      'questions',
+    ]);
   }
 
   createPart() {

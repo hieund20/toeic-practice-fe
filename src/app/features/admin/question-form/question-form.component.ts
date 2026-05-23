@@ -50,7 +50,7 @@ export class QuestionFormComponent implements OnInit {
 
     this.partId = this.route.snapshot.paramMap.get('partId') || undefined;
 
-    this.questionId = this.route.snapshot.paramMap.get('id') || undefined;
+    this.questionId = this.route.snapshot.paramMap.get('questionId') || undefined;
 
     if (this.questionId) {
       this.loadQuestion();

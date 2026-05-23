@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class AnswerManagementComponent implements OnInit {
   answers: any[] = [];
   questionId!: string;
+  testId!: string;
+  partId!: string;
 
   displayedColumns = ['content', 'correct', 'order', 'actions'];
 
@@ -26,6 +28,8 @@ export class AnswerManagementComponent implements OnInit {
 
   ngOnInit() {
     this.questionId = this.route.snapshot.paramMap.get('questionId')!;
+    this.testId = this.route.snapshot.paramMap.get('testId')!;
+    this.partId = this.route.snapshot.paramMap.get('partId')!;
 
     this.loadAnswers();
   }
@@ -40,15 +44,29 @@ export class AnswerManagementComponent implements OnInit {
 
   createAnswer() {
     this.router.navigate([
-      '/admin/questions',
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
       this.questionId,
       'answers',
       'create',
     ]);
   }
 
-  editAnswer(id: string) {
-    this.router.navigate(['/admin/answers', id, 'edit']);
+  editAnswer(answerId: string) {
+    this.router.navigate([
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
+      this.questionId,
+      'answers',
+      answerId,
+      'edit',
+    ]);
   }
 
   deleteAnswer(id: string) {

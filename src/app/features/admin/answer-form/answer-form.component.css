@@ -12,3 +12,8 @@
 .actions {
   margin-top: 20px;
 }
+
+.app-card:hover {
+  box-shadow: none;
+  transform: none;
+}

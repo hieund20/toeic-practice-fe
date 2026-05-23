@@ -1,35 +1,39 @@
-<div class="form-container">
-  <h2>
+<div class="page-container">
+  <h2 class="page-title">
     {{ answerId ? "Edit Answer" : "Create Answer" }}
   </h2>
 
-  <form [formGroup]="form">
-    <!-- Answer content -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Answer Content</mat-label>
+  <div class="app-card">
+    <form [formGroup]="form">
+      <!-- Answer content -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Answer Content</mat-label>
 
-      <input matInput formControlName="content" />
-    </mat-form-field>
+        <input matInput formControlName="content" />
+      </mat-form-field>
 
-    <!-- Answer order -->
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Answer Order</mat-label>
+      <!-- Answer order -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Answer Order</mat-label>
 
-      <input matInput type="number" formControlName="answerOrder" />
-    </mat-form-field>
+        <input matInput type="number" formControlName="answerOrder" />
+      </mat-form-field>
 
-    <!-- Correct answer -->
-    <mat-checkbox formControlName="isCorrect"> Is Correct Answer </mat-checkbox>
+      <!-- Correct answer -->
+      <mat-checkbox formControlName="isCorrect">
+        Is Correct Answer
+      </mat-checkbox>
 
-    <div class="actions">
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="form.invalid"
-        (click)="save()"
-      >
-        Save
-      </button>
-    </div>
-  </form>
+      <div class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="save()"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
