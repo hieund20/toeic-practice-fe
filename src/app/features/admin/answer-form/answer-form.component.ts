@@ -31,6 +31,9 @@ export class AnswerFormComponent implements OnInit {
 
   questionId?: string;
   answerId?: string;
+  groupId?: string;
+  testId?: string;
+  partId?: string;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +53,9 @@ export class AnswerFormComponent implements OnInit {
       this.route.snapshot.paramMap.get('questionId') || undefined;
 
     this.answerId = this.route.snapshot.paramMap.get('answerId') || undefined;
+    this.groupId = this.route.snapshot.paramMap.get('groupId')!;
+    this.testId = this.route.snapshot.paramMap.get('testId')!;
+    this.partId = this.route.snapshot.paramMap.get('partId')!;
 
     if (this.answerId) {
       this.loadAnswer();
@@ -81,8 +87,36 @@ export class AnswerFormComponent implements OnInit {
   }
 
   goBack() {
-    if (!this.questionId) return;
+    if (!this.testId || !this.partId || !this.questionId) {
+      return;
+    }
 
-    this.router.navigate(['/admin/questions', this.questionId, 'answers']);
+    // grouped question
+    if (this.groupId) {
+      this.router.navigate([
+        '/admin/tests',
+        this.testId,
+        'parts',
+        this.partId,
+        'groups',
+        this.groupId,
+        'questions',
+        this.questionId,
+        'answers',
+      ]);
+
+      return;
+    }
+
+    // standalone question
+    this.router.navigate([
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
+      this.questionId,
+      'answers',
+    ]);
   }
 }
