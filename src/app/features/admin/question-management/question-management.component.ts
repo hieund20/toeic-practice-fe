@@ -27,6 +27,7 @@ export class QuestionManagementComponent implements OnInit {
 
   breadcrumbs: any[] = [];
   testId!: string;
+  groupId!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class QuestionManagementComponent implements OnInit {
   ngOnInit() {
     this.testId = this.route.snapshot.paramMap.get('testId')!;
     this.partId = this.route.snapshot.paramMap.get('partId')!;
+    this.groupId = this.route.snapshot.paramMap.get('groupId')!;
 
     this.buildBreadcrumbs();
     this.loadQuestions();
@@ -59,6 +61,23 @@ export class QuestionManagementComponent implements OnInit {
   }
 
   createQuestion() {
+    if (this.groupId) {
+      // grouped question
+      this.router.navigate([
+        '/admin/tests',
+        this.testId,
+        'parts',
+        this.partId,
+        'groups',
+        this.groupId,
+        'questions',
+        'create',
+      ]);
+
+      return;
+    }
+
+    // standalone question
     this.router.navigate([
       '/admin/tests',
       this.testId,

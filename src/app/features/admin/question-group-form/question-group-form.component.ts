@@ -88,6 +88,12 @@ export class QuestionGroupFormComponent implements OnInit {
 
     const payload = {
       ...this.form.value,
+      audioUrl:
+        this.form.controls['audioUrl'].value?.url ||
+        this.form.controls['audioUrl'].value,
+      imageUrl:
+        this.form.controls['imageUrl'].value?.url ||
+        this.form.controls['imageUrl'].value,
       testPartId: this.partId,
     };
 

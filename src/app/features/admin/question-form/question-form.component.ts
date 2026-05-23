@@ -29,6 +29,8 @@ export class QuestionFormComponent implements OnInit {
 
   partId?: string;
   questionId?: string;
+  groupId?: string;
+  testId?: string;
 
   isUploadingImage = false;
   isUploadingAudio = false;
@@ -46,11 +48,14 @@ export class QuestionFormComponent implements OnInit {
       questionOrder: [1, Validators.required],
       audioUrl: [''],
       imageUrl: [''],
+      groupId: ['']
     });
 
     this.partId = this.route.snapshot.paramMap.get('partId') || undefined;
-
-    this.questionId = this.route.snapshot.paramMap.get('questionId') || undefined;
+    this.questionId =
+      this.route.snapshot.paramMap.get('questionId') || undefined;
+    this.groupId = this.route.snapshot.paramMap.get('groupId') || undefined;
+    this.testId = this.route.snapshot.paramMap.get('testId') || undefined;
 
     if (this.questionId) {
       this.loadQuestion();
@@ -68,6 +73,7 @@ export class QuestionFormComponent implements OnInit {
     const payload = {
       ...this.form.value,
       testPartId: this.partId,
+      groupId: this.groupId
     };
 
     if (this.questionId) {
@@ -84,10 +90,33 @@ export class QuestionFormComponent implements OnInit {
   }
 
   goBack() {
-    console.log(this.partId);
-    if (!this.partId) return;
+    if (!this.testId || !this.partId) {
+      return;
+    }
 
-    this.router.navigate(['/admin/parts', this.partId, 'questions']);
+    // grouped question
+    if (this.groupId) {
+      this.router.navigate([
+        '/admin/tests',
+        this.testId,
+        'parts',
+        this.partId,
+        'groups',
+        this.groupId,
+        'questions',
+      ]);
+
+      return;
+    }
+
+    // standalone question
+    this.router.navigate([
+      '/admin/tests',
+      this.testId,
+      'parts',
+      this.partId,
+      'questions',
+    ]);
   }
 
   uploadImage(event: any) {

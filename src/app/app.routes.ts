@@ -87,6 +87,11 @@ export const routes: Routes = [
     component: QuestionFormComponent,
   },
   {
+    path: 'admin/tests/:testId/parts/:partId/groups/:groupId/questions/create',
+
+    component: QuestionFormComponent,
+  },
+  {
     path: 'admin/tests/:testId/parts/:partId/questions/:questionId/answers',
     component: AnswerManagementComponent,
   },
