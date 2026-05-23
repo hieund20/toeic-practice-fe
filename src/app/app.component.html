@@ -1,5 +1,9 @@
 <main class="main">
-  <app-header title="TOEIC Master" userName="Hieu"> </app-header>
-  <router-outlet />
-  <app-footer appName="TOEIC Master"> </app-footer>
+  <div class="app-layout">
+    <app-header title="TOEIC Master" userName="Hieu"> </app-header>
+    <div class="app-content">
+      <router-outlet />
+    </div>
+    <app-footer appName="TOEIC Master"> </app-footer>
+  </div>
 </main>

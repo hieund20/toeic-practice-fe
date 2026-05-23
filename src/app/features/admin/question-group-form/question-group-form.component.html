@@ -1,0 +1,65 @@
+<div class="page-container">
+  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+
+  <h2 class="page-title">
+    {{ groupId ? "Edit Question Group" : "Create Question Group" }}
+  </h2>
+
+  <div class="app-card">
+    <form [formGroup]="form">
+      <!-- Title -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label> Group Title </mat-label>
+
+        <input matInput formControlName="title" />
+      </mat-form-field>
+
+      <!-- Passage -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label> Passage Content </mat-label>
+
+        <textarea matInput rows="10" formControlName="content"> </textarea>
+      </mat-form-field>
+
+      <!-- Upload image -->
+      <div class="upload-section">
+        <label> Upload Image </label>
+
+        <input type="file" accept="image/*" (change)="uploadImage($event)" />
+      </div>
+
+      <!-- Preview image -->
+      <img
+        *ngIf="form.value.imageUrl"
+        [src]="form.value.imageUrl"
+        class="preview-image"
+      />
+
+      <!-- Upload audio -->
+      <div class="upload-section">
+        <label> Upload Audio </label>
+
+        <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
+      </div>
+
+      <!-- Preview audio -->
+      <audio
+        *ngIf="form.value.audioUrl"
+        controls
+        [src]="form.value.audioUrl"
+      ></audio>
+
+      <!-- Save -->
+      <div class="actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid || isUploadingImage || isUploadingAudio"
+          (click)="save()"
+        >
+          {{ isUploadingImage || isUploadingAudio ? "Uploading..." : "Save" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

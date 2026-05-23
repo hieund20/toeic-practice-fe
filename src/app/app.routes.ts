@@ -13,6 +13,8 @@ import { AnswerFormComponent } from './features/admin/answer-form/answer-form.co
 import { TestPartFormComponent } from './features/admin/test-part-form/test-part-form.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { QuestionGroupFormComponent } from './features/admin/question-group-form/question-group-form.component';
+import { QuestionGroupManagementComponent } from './features/admin/question-group-management/question-group-management.component';
 
 export const routes: Routes = [
   //Public
@@ -51,6 +53,26 @@ export const routes: Routes = [
   {
     path: 'admin/tests/:testId/parts/:partId/edit',
     component: TestPartFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/groups',
+
+    component: QuestionGroupManagementComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/groups/create',
+
+    component: QuestionGroupFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/groups/:groupId/edit',
+
+    component: QuestionGroupFormComponent,
+  },
+  {
+    path: 'admin/tests/:testId/parts/:partId/groups/:groupId/questions',
+
+    component: QuestionManagementComponent,
   },
   {
     path: 'admin/tests/:testId/parts/:partId/questions',
