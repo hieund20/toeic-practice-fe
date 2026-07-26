@@ -1,18 +1,21 @@
-<mat-toolbar class="footer-toolbar">
-  <!-- Left -->
-  <div class="footer-left">{{ appName }} © {{ currentYear }}</div>
+<footer class="app-footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <a routerLink="/tests" class="footer-logo">
+        <span><mat-icon>school</mat-icon></span>
+        {{ appName }}
+      </a>
+      <p>Focused practice for confident TOEIC performance.</p>
+    </div>
 
-  <!-- Spacer -->
-  <span class="spacer"></span>
-
-  <!-- Right -->
-  <div class="footer-right">
-    <a routerLink="/tests"> Tests </a>
-
-    <span class="divider">|</span>
-
-    <span>
-      {{ version }}
-    </span>
+    <div class="footer-links">
+      <a routerLink="/tests"><mat-icon>assignment</mat-icon> Practice tests</a>
+      <span class="version-badge">{{ version }}</span>
+    </div>
   </div>
-</mat-toolbar>
+
+  <div class="footer-bottom">
+    <span>© {{ currentYear }} {{ appName }}. Keep learning, one test at a time.</span>
+    <span class="footer-status"><i></i> Practice mode ready</span>
+  </div>
+</footer>

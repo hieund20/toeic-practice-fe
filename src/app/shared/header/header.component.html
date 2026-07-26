@@ -1,25 +1,25 @@
 <mat-toolbar class="header-toolbar">
-  <!-- Logo / Title -->
-  <a routerLink="/tests" class="logo">
-    {{ title }}
+  <a routerLink="/tests" class="brand" aria-label="Go to practice tests">
+    <span class="brand-mark"><mat-icon>school</mat-icon></span>
+    <span class="brand-name">{{ title }}</span>
   </a>
+
+  <nav class="main-nav" aria-label="Main navigation">
+    <a mat-button routerLink="/tests" routerLinkActive="nav-link-active">Practice tests</a>
+    <a *ngIf="authService.isAdmin()" mat-button routerLink="/admin/tests" routerLinkActive="nav-link-active">
+      <mat-icon>admin_panel_settings</mat-icon>
+      Admin
+    </a>
+  </nav>
 
   <span class="spacer"></span>
 
-  <a *ngIf="authService.isAdmin()" mat-button routerLink="/admin/tests">
-    Admin
-  </a>
-
-  <!-- User menu trigger -->
-  <button mat-icon-button [matMenuTriggerFor]="userMenu">
-    <mat-icon>account_circle</mat-icon>
+  <button class="user-trigger" mat-button [matMenuTriggerFor]="userMenu">
+    <span class="user-avatar">{{ userName ? userName.charAt(0) : '?' }}</span>
+    <span class="user-name">{{ userName || 'My account' }}</span>
+    <mat-icon class="user-chevron">expand_more</mat-icon>
   </button>
 
-  <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="userName">
-    {{ userName }}
-  </button>
-
-  <!-- Dropdown menu -->
   <mat-menu #userMenu="matMenu">
     <button mat-menu-item routerLink="/profile">
       <mat-icon>person</mat-icon>

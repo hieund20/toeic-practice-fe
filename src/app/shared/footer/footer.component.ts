@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterModule, MatToolbarModule],
+  imports: [RouterModule, MatToolbarModule, MatIconModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css',
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent {
   @Input() appName: string = 'TOEIC Master';

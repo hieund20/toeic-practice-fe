@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
 
@@ -15,9 +16,10 @@ import { TestService } from '../../../services/test.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './test-form.component.html',
-  styleUrl: './test-form.component.css',
+  styleUrls: ['./test-form.component.css'],
 })
 export class TestFormComponent implements OnInit {
   form!: FormGroup;
@@ -36,7 +38,8 @@ export class TestFormComponent implements OnInit {
       title: ['']
     });
 
-    this.testId = this.route.snapshot.paramMap.get('id') || undefined;
+    // The edit route is declared as `admin/tests/:testId/edit`.
+    this.testId = this.route.snapshot.paramMap.get('testId') || undefined;
 
     if (this.testId) {
       this.testService.getTest(this.testId).subscribe((res: any) => {

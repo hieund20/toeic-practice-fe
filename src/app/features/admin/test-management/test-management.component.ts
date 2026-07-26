@@ -17,7 +17,7 @@ import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/bread
     BreadcrumbComponent,
   ],
   templateUrl: './test-management.component.html',
-  styleUrl: './test-management.component.css',
+  styleUrls: ['./test-management.component.css'],
 })
 export class TestManagementComponent implements OnInit {
   tests: any[] = [];

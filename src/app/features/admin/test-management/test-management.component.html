@@ -1,42 +1,72 @@
-<div class="page-container">
-  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
-  
-  <div class="page-header">
-    <h2 class="page-title">Manage Tests</h2>
+<main class="management-page">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
 
-    <button mat-raised-button color="primary" (click)="createTest()">
-      Create Test
+  <section class="management-hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><mat-icon>admin_panel_settings</mat-icon> ADMIN WORKSPACE</span>
+      <h1>Manage your practice tests</h1>
+      <p>Create, update, and organise every TOEIC test in your practice library.</p>
+    </div>
+
+    <button class="create-button" mat-flat-button (click)="createTest()">
+      <mat-icon>add</mat-icon>
+      Create test
     </button>
-  </div>
+  </section>
 
-  <table mat-table [dataSource]="tests">
-    <!-- Title -->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef>Title</th>
+  <section class="library-section" aria-labelledby="test-library-title">
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">TEST LIBRARY</span>
+        <h2 id="test-library-title">Your published tests</h2>
+      </div>
+      <span class="test-count"><mat-icon>description</mat-icon> {{ tests.length }} tests</span>
+    </div>
 
-      <td mat-cell *matCellDef="let test">
-        {{ test.title }}
-      </td>
-    </ng-container>
+    <div class="table-shell" *ngIf="tests.length; else emptyState">
+      <table mat-table [dataSource]="tests" class="tests-table">
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Test</th>
+          <td mat-cell *matCellDef="let test; let index = index">
+            <div class="test-title-cell">
+              <span class="test-number">{{ index + 1 }}</span>
+              <div>
+                <strong>{{ test.title }}</strong>
+                <span>TOEIC practice test</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef><span class="actions-label">Actions</span></th>
+          <td mat-cell *matCellDef="let test">
+            <div class="row-actions">
+              <button mat-icon-button class="action-button manage-action" (click)="manageTest(test.id)" aria-label="Manage test">
+                <mat-icon>tune</mat-icon>
+              </button>
+              <button mat-icon-button class="action-button edit-action" (click)="editTest(test.id)" aria-label="Edit test">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="action-button delete-action" (click)="deleteTest(test.id)" aria-label="Delete test">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-      <td mat-cell *matCellDef="let test">
-        <button mat-icon-button color="accent" (click)="manageTest(test.id)">
-          <mat-icon>settings</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" (click)="editTest(test.id)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteTest(test.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <span class="empty-icon"><mat-icon>library_add</mat-icon></span>
+        <h3>Your library is ready for its first test</h3>
+        <p>Create a test to start building a focused TOEIC practice experience.</p>
+        <button mat-stroked-button (click)="createTest()"><mat-icon>add</mat-icon> Create your first test</button>
+      </div>
+    </ng-template>
+  </section>
+</main>

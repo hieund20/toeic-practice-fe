@@ -1,15 +1,36 @@
-<div class="form-container">
-  <h2>
-    {{ testId ? "Edit Test" : "Create Test" }}
-  </h2>
+<main class="test-form-page">
+  <section class="form-hero">
+    <div class="hero-icon"><mat-icon>{{ testId ? 'edit_note' : 'post_add' }}</mat-icon></div>
+    <div>
+      <span class="eyebrow">ADMIN WORKSPACE</span>
+      <h1>{{ testId ? 'Edit practice test' : 'Create a practice test' }}</h1>
+      <p>{{ testId ? 'Update the essentials for this TOEIC practice test.' : 'Start your test library with a clear, recognisable title.' }}</p>
+    </div>
+  </section>
 
-  <form [formGroup]="form">
-    <mat-form-field appearance="outline">
-      <mat-label>Test Title</mat-label>
+  <section class="form-panel" aria-labelledby="details-title">
+    <div class="panel-heading">
+      <div class="step-badge">01</div>
+      <div>
+        <span class="section-kicker">TEST DETAILS</span>
+        <h2 id="details-title">Name your test</h2>
+      </div>
+    </div>
 
-      <input matInput formControlName="title" />
-    </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <mat-form-field appearance="outline" class="title-field">
+        <mat-label>Test title</mat-label>
+        <input matInput formControlName="title" placeholder="e.g. TOEIC Practice Test 01" />
+        <mat-hint>Use a title that makes this test easy to find later.</mat-hint>
+      </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="save()">Save</button>
-  </form>
-</div>
+      <div class="form-footer">
+        <p><mat-icon>info</mat-icon> You can add parts and questions after saving.</p>
+        <button class="save-button" mat-flat-button type="submit">
+          <mat-icon>{{ testId ? 'save' : 'arrow_forward' }}</mat-icon>
+          {{ testId ? 'Save changes' : 'Create test' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

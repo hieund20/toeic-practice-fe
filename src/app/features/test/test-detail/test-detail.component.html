@@ -1,110 +1,123 @@
-<div class="page-container" *ngIf="test">
-  <!-- HEADER -->
-  <mat-card class="app-card">
-    <div class="top-section">
-      <div>
-        <h2>{{ test.title }}</h2>
-        <p>Question {{ currentIndex + 1 }} / {{ flatQuestions.length }}</p>
-      </div>
-
-      <div class="header-actions">
-        <mat-chip> ⏱ {{ formattedTime }} </mat-chip>
-
-        <button mat-raised-button color="primary" (click)="submit()">
-          Submit
-        </button>
-      </div>
+<main class="test-session" *ngIf="test">
+  <section class="session-hero">
+    <div class="session-title">
+      <span class="session-eyebrow"><mat-icon>edit_note</mat-icon> TOEIC PRACTICE SESSION</span>
+      <h1>{{ test.title }}</h1>
+      <p>Stay focused, work through each question, and submit when you are ready.</p>
     </div>
 
-    <mat-progress-bar
-      mode="determinate"
-      [value]="((currentIndex + 1) / flatQuestions.length) * 100"
-    >
-    </mat-progress-bar>
-  </mat-card>
+    <div class="session-actions">
+      <div class="timer-card" aria-label="Time remaining">
+        <mat-icon>timer</mat-icon>
+        <div>
+          <span>TIME REMAINING</span>
+          <strong>{{ formattedTime }}</strong>
+        </div>
+      </div>
+      <button class="submit-button" mat-flat-button [disabled]="isSubmitting" (click)="submit()">
+        <mat-icon>task_alt</mat-icon>
+        {{ isSubmitting ? 'Submitting...' : 'Submit test' }}
+      </button>
+    </div>
 
-  <!-- MAIN CONTENT -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Question {{ currentIndex + 1 }} of {{ flatQuestions.length }}</span>
+        <span>{{ ((currentIndex + 1) / flatQuestions.length) * 100 | number: '1.0-0' }}% complete</span>
+      </div>
+      <mat-progress-bar mode="determinate" [value]="((currentIndex + 1) / flatQuestions.length) * 100"></mat-progress-bar>
+    </div>
+  </section>
+
   <div class="content-layout">
-    <!-- LEFT PANEL -->
-    <mat-card class="app-card">
-      <ng-container *ngIf="currentQuestion">
-        <!-- Group Content -->
-        <div *ngIf="currentGroup" class="group-section">
-          <audio
-            *ngIf="currentGroup.audioUrl"
-            controls
-            [src]="currentGroup.audioUrl"
-          ></audio>
-
-          <div *ngIf="currentGroup.content" class="passage">
-            {{ currentGroup.content }}
-          </div>
+    <mat-card class="question-card">
+      <mat-card-content>
+        <div class="question-card-heading">
+          <span class="question-index">QUESTION {{ currentIndex + 1 }}</span>
+          <span class="question-type"><mat-icon>quiz</mat-icon> Choose one answer</span>
         </div>
 
-        <mat-divider></mat-divider>
+        <ng-container *ngIf="currentQuestion">
+          <section *ngIf="currentGroup" class="group-section">
+            <div class="section-label"><mat-icon>library_books</mat-icon> Reference material</div>
+            <audio *ngIf="currentGroup.audioUrl" controls [src]="currentGroup.audioUrl"></audio>
+            <div *ngIf="currentGroup.content" class="passage">{{ currentGroup.content }}</div>
+          </section>
 
-        <div class="question-section">
-          <h3>Question {{ currentIndex + 1 }}</h3>
+          <mat-divider *ngIf="currentGroup"></mat-divider>
 
-          <!-- Question Audio -->
-          <audio
-            *ngIf="currentQuestion.audioUrl"
-            controls
-            [src]="currentQuestion.audioUrl"
-            class="question-audio"
-          ></audio>
+          <section class="question-section">
+            <audio *ngIf="currentQuestion.audioUrl" controls [src]="currentQuestion.audioUrl" class="question-audio"></audio>
 
-          <!-- Question Image -->
-          <img
-            *ngIf="currentQuestion.imageUrl"
-            [src]="currentQuestion.imageUrl"
-            alt="Question image"
-            class="question-image"
-          />
+            <img
+              *ngIf="currentQuestion.imageUrl"
+              [src]="currentQuestion.imageUrl"
+              alt="Question image"
+              class="question-image"
+            />
 
-          <!-- Question Content -->
-          <p>
-            {{ currentQuestion.content }}
-          </p>
-        </div>
-      </ng-container>
+            <p class="question-content">{{ currentQuestion.content }}</p>
+          </section>
+        </ng-container>
+      </mat-card-content>
     </mat-card>
 
-    <!-- RIGHT PANEL -->
-    <mat-card class="app-card">
-      <!-- Answer options -->
-      <div *ngIf="currentQuestion">
-        <mat-radio-group
-          [value]="selectedAnswers[currentQuestion.id]"
-          (change)="selectAnswer(currentQuestion.id, $event.value)"
-        >
-          <div *ngFor="let a of currentQuestion.answers" class="answer-item">
-            <mat-radio-button [value]="a.id">
-              {{ a.content }}
-            </mat-radio-button>
+    <aside class="answer-sidebar">
+      <mat-card class="answers-card">
+        <mat-card-content>
+          <div class="sidebar-heading">
+            <div>
+              <p>YOUR ANSWER</p>
+              <h2>Select the best option</h2>
+            </div>
+            <mat-icon>check_circle_outline</mat-icon>
           </div>
-        </mat-radio-group>
-      </div>
 
-      <mat-divider></mat-divider>
+          <div *ngIf="currentQuestion">
+            <mat-radio-group
+              class="answer-list"
+              [value]="selectedAnswers[currentQuestion.id]"
+              (change)="selectAnswer(currentQuestion.id, $event.value)"
+            >
+              <div *ngFor="let a of currentQuestion.answers; let i = index" class="answer-item">
+                <mat-radio-button [value]="a.id">
+                  <span class="answer-letter">{{ ['A', 'B', 'C', 'D'][i] }}</span>
+                  <span>{{ a.content }}</span>
+                </mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
-      <!-- Navigator -->
-      <div class="part-block" *ngFor="let part of partNavigators">
-        <div class="part-title">PART {{ part.partNumber }}</div>
-        <div class="question-grid">
-          <button
-            mat-stroked-button
-            *ngFor="let item of part.items"
-            [ngClass]="{
-              'current-question': item.index === currentIndex,
-              'answered-question': selectedAnswers[item.questionId],
-            }"
-            (click)="goTo(item.index)"
-          >
-            {{ item.displayNumber }}
-          </button>
-        </div>
-      </div>
-    </mat-card>
+      <mat-card class="navigator-card">
+        <mat-card-content>
+          <div class="navigator-heading">
+            <div>
+              <p>QUESTION MAP</p>
+              <h2>Navigate the test</h2>
+            </div>
+            <span class="map-key"><i></i> Answered</span>
+          </div>
+
+          <div class="part-block" *ngFor="let part of partNavigators">
+            <div class="part-title">PART {{ part.partNumber }}</div>
+            <div class="question-grid">
+              <button
+                mat-stroked-button
+                *ngFor="let item of part.items"
+                [ngClass]="{
+                  'current-question': item.index === currentIndex,
+                  'answered-question': selectedAnswers[item.questionId]
+                }"
+                (click)="goTo(item.index)"
+              >
+                {{ item.displayNumber }}
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </aside>
   </div>
-</div>
+</main>

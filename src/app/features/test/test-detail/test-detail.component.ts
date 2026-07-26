@@ -9,6 +9,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { OnDestroy } from '@angular/core';
@@ -24,9 +25,10 @@ import { OnDestroy } from '@angular/core';
     MatDividerModule,
     MatChipsModule,
     MatProgressBarModule,
+    MatIconModule,
   ],
   templateUrl: './test-detail.component.html',
-  styleUrl: './test-detail.component.css',
+  styleUrls: ['./test-detail.component.css'],
 })
 export class TestDetailComponent implements OnInit, OnDestroy {
   test: any;

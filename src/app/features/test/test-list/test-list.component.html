@@ -1,30 +1,81 @@
 <div class="page-container">
-  <div>
-    <h2 class="page-title">TOEIC Practice Tests</h2>
-    <p class="page-subtitle">Select a test and start practicing</p>
-  </div>
+  <section class="test-hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><mat-icon>auto_awesome</mat-icon> TOEIC PREPARATION</span>
+      <h1>Practice with purpose,<br /><span>perform with confidence.</span></h1>
+      <p>
+        Choose a full-length TOEIC test and sharpen your Listening and Reading
+        skills at your own pace.
+      </p>
 
-  <div class="test-grid">
-    <mat-card class="app-card" *ngFor="let t of tests">
-      <mat-card-header>
-        <mat-icon mat-card-avatar>description</mat-icon>
+      <div class="hero-points">
+        <span><mat-icon>verified</mat-icon> Exam-style practice</span>
+        <span><mat-icon>schedule</mat-icon> Learn on your schedule</span>
+      </div>
+    </div>
 
-        <mat-card-title>
-          {{ t.title }}
-        </mat-card-title>
+    <div class="hero-summary" aria-label="Practice test summary">
+      <div class="summary-icon"><mat-icon>workspace_premium</mat-icon></div>
+      <p class="summary-label">YOUR PRACTICE LIBRARY</p>
+      <strong>{{ tests.length }}</strong>
+      <p>full TOEIC tests ready to start</p>
+      <div class="summary-divider"></div>
+      <span><mat-icon>headphones</mat-icon> Listening + Reading</span>
+    </div>
+  </section>
 
-        <mat-card-subtitle> Full TOEIC practice test </mat-card-subtitle>
-      </mat-card-header>
+  <section class="test-library" aria-labelledby="library-title">
+    <div class="library-heading">
+      <div>
+        <p class="section-kicker">TEST LIBRARY</p>
+        <h2 id="library-title">Find your next challenge</h2>
+      </div>
 
-      <mat-card-content>
-        <p>Practice Listening and Reading sections with real exam structure.</p>
-      </mat-card-content>
+      <div class="library-meta">
+        <span class="test-count">{{ tests.length }} tests available</span>
+        <span class="format-chip"><mat-icon>description</mat-icon> Full length</span>
+      </div>
+    </div>
+    <div class="test-grid">
+      <mat-card
+        class="test-card"
+        *ngFor="let t of paginatedTests; let i = index"
+      >
+        <mat-card-content class="test-card-content">
+          <div class="test-card-top">
+            <div class="test-icon">
+              <mat-icon>assignment</mat-icon>
+            </div>
+            <span class="test-number">TEST {{ pageIndex * pageSize + i + 1 }}</span>
+          </div>
 
-      <mat-card-actions align="end">
-        <button mat-raised-button color="primary" (click)="startTest(t.id)">
-          Start Test
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+          <div class="test-card-copy">
+            <h3>{{ t.title }}</h3>
+            <p>Full TOEIC practice test with Listening and Reading sections.</p>
+          </div>
+
+          <div class="test-details" aria-label="Test details">
+            <span><mat-icon>headphones</mat-icon> Listening</span>
+            <span><mat-icon>menu_book</mat-icon> Reading</span>
+          </div>
+
+          <button class="start-test-button" mat-flat-button (click)="startTest(t.id)">
+            Start practice
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <mat-paginator
+      *ngIf="tests.length > 0"
+      class="test-paginator"
+      [length]="tests.length"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      [showFirstLastButtons]="true"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </section>
 </div>
