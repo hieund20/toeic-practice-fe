@@ -1,56 +1,74 @@
-<div class="page-container">
-  <div class="page-header">
-    <h2 class="page-title">Manage Answers</h2>
-
-    <button mat-raised-button color="primary" (click)="createAnswer()">
-      Create Answer
+<main class="answer-management-page">
+  <section class="management-hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><mat-icon>checklist</mat-icon> QUESTION ANSWERS</span>
+      <h1>Answer choices</h1>
+      <p>Create the possible responses for this question and clearly identify the correct answer.</p>
+    </div>
+    <button class="create-button" mat-flat-button (click)="createAnswer()">
+      <mat-icon>add</mat-icon>
+      Create answer
     </button>
-  </div>
+  </section>
 
-  <table mat-table [dataSource]="answers">
-    <!-- Content -->
-    <ng-container matColumnDef="content">
-      <th mat-header-cell *matHeaderCellDef>Content</th>
+  <section class="answers-library" aria-labelledby="answers-title">
+    <div class="library-heading">
+      <div>
+        <span class="section-kicker">ANSWER LIST</span>
+        <h2 id="answers-title">Available choices</h2>
+      </div>
+      <span class="answer-count"><mat-icon>format_list_numbered</mat-icon> {{ answers.length }} {{ answers.length === 1 ? 'answer' : 'answers' }}</span>
+    </div>
 
-      <td mat-cell *matCellDef="let a">
-        {{ a.content }}
-      </td>
-    </ng-container>
+    <div class="table-shell" *ngIf="answers.length; else emptyState">
+      <table mat-table [dataSource]="answers" class="answers-table">
+        <ng-container matColumnDef="content">
+          <th mat-header-cell *matHeaderCellDef>Answer choice</th>
+          <td mat-cell *matCellDef="let a; let index = index">
+            <div class="answer-cell">
+              <span class="answer-letter">{{ a.answerOrder || index + 1 }}</span>
+              <strong>{{ a.content }}</strong>
+            </div>
+          </td>
+        </ng-container>
 
-    <!-- Correct -->
-    <ng-container matColumnDef="correct">
-      <th mat-header-cell *matHeaderCellDef>Correct</th>
+        <ng-container matColumnDef="correct">
+          <th mat-header-cell *matHeaderCellDef>Correct answer</th>
+          <td mat-cell *matCellDef="let a">
+            <span class="correct-pill" [class.is-correct]="a.isCorrect" [class.is-not-correct]="!a.isCorrect">
+              <mat-icon>{{ a.isCorrect ? 'check_circle' : 'circle' }}</mat-icon>
+              {{ a.isCorrect ? 'Correct' : 'Not correct' }}
+            </span>
+          </td>
+        </ng-container>
 
-      <td mat-cell *matCellDef="let a">
-        {{ a.isCorrect ? "Yes" : "No" }}
-      </td>
-    </ng-container>
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef>Order</th>
+          <td mat-cell *matCellDef="let a"><span class="order-pill">#{{ a.answerOrder }}</span></td>
+        </ng-container>
 
-    <!-- Order -->
-    <ng-container matColumnDef="order">
-      <th mat-header-cell *matHeaderCellDef>Order</th>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef><span class="actions-label">Actions</span></th>
+          <td mat-cell *matCellDef="let a">
+            <div class="row-actions">
+              <button mat-icon-button class="action-button edit-action" (click)="editAnswer(a.id)" aria-label="Edit answer"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button class="action-button delete-action" (click)="deleteAnswer(a.id)" aria-label="Delete answer"><mat-icon>delete_outline</mat-icon></button>
+            </div>
+          </td>
+        </ng-container>
 
-      <td mat-cell *matCellDef="let a">
-        {{ a.answerOrder }}
-      </td>
-    </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-
-      <td mat-cell *matCellDef="let a">
-        <button mat-icon-button color="primary" (click)="editAnswer(a.id)">
-          <mat-icon>edit</mat-icon>
-        </button>
-
-        <button mat-icon-button color="warn" (click)="deleteAnswer(a.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <span class="empty-icon"><mat-icon>playlist_add</mat-icon></span>
+        <h3>No answer choices yet</h3>
+        <p>Add the possible responses for this question, then mark the correct one.</p>
+        <button mat-stroked-button (click)="createAnswer()"><mat-icon>add</mat-icon> Create first answer</button>
+      </div>
+    </ng-template>
+  </section>
+</main>

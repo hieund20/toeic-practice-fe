@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
 
@@ -20,9 +21,10 @@ import { TestService } from '../../../services/test.service';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
   ],
   templateUrl: './question-form.component.html',
-  styleUrl: './question-form.component.css',
+  styleUrls: ['./question-form.component.css'],
 })
 export class QuestionFormComponent implements OnInit {
   form!: FormGroup;

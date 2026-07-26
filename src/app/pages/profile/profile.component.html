@@ -1,74 +1,95 @@
-<div class="page-container">
-  <h2 class="page-title">My Profile</h2>
-  <div class="app-card">
-    <mat-tab-group>
-      <!-- Profile Info -->
-      <mat-tab label="Profile Information">
+<main class="profile-page">
+  <section class="profile-hero">
+    <span class="profile-avatar"><mat-icon>person</mat-icon></span>
+    <div class="hero-copy">
+      <span class="eyebrow">LEARNER PROFILE</span>
+      <h1>{{ user?.name || 'My profile' }}</h1>
+      <p>Review your account details and keep track of your TOEIC test attempts.</p>
+    </div>
+    <span class="role-badge"><mat-icon>verified_user</mat-icon> {{ user?.role || 'Member' }}</span>
+  </section>
+
+  <section class="profile-panel">
+    <mat-tab-group animationDuration="200ms">
+      <mat-tab label="Profile information">
         <div class="tab-content">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">ACCOUNT DETAILS</span>
+              <h2>Your profile at a glance</h2>
+            </div>
+            <span class="details-note"><mat-icon>lock</mat-icon> Account information</span>
+          </div>
+
           <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Name</div>
-              <div class="info-value">
-                {{ user?.name }}
+            <article class="info-item">
+              <span class="info-icon name-icon"><mat-icon>badge</mat-icon></span>
+              <div>
+                <span class="info-label">Full name</span>
+                <strong class="info-value">{{ user?.name || '—' }}</strong>
               </div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-label">Email</div>
-              <div class="info-value">
-                {{ user?.email }}
+            </article>
+            <article class="info-item">
+              <span class="info-icon email-icon"><mat-icon>mail</mat-icon></span>
+              <div>
+                <span class="info-label">Email address</span>
+                <strong class="info-value">{{ user?.email || '—' }}</strong>
               </div>
-            </div>
-
-            <div class="info-item">
-              <div class="info-label">Role</div>
-              <div class="info-value">
-                {{ user?.role }}
+            </article>
+            <article class="info-item">
+              <span class="info-icon role-icon"><mat-icon>shield</mat-icon></span>
+              <div>
+                <span class="info-label">Account role</span>
+                <strong class="info-value">{{ user?.role || '—' }}</strong>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </mat-tab>
 
-      <!-- Test History -->
-      <mat-tab label="Test History">
+      <mat-tab label="Test history">
         <div class="tab-content">
-          <table mat-table [dataSource]="historyList" class="history-table">
-            <!-- Test -->
-            <ng-container matColumnDef="test">
-              <th mat-header-cell *matHeaderCellDef>Test</th>
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">LEARNING ACTIVITY</span>
+              <h2>Your submitted tests</h2>
+            </div>
+            <span class="history-count"><mat-icon>history</mat-icon> {{ historyList.length }} {{ historyList.length === 1 ? 'attempt' : 'attempts' }}</span>
+          </div>
 
-              <td mat-cell *matCellDef="let item">
-                {{ item.testName }}
-              </td>
-            </ng-container>
+          <div class="table-shell" *ngIf="historyList.length; else emptyHistory">
+            <table mat-table [dataSource]="historyList" class="history-table">
+              <ng-container matColumnDef="test">
+                <th mat-header-cell *matHeaderCellDef>Test</th>
+                <td mat-cell *matCellDef="let item; let index = index">
+                  <div class="test-cell"><span class="attempt-number">{{ index + 1 }}</span><strong>{{ item.testName }}</strong></div>
+                </td>
+              </ng-container>
 
-            <!-- Score -->
-            <ng-container matColumnDef="score">
-              <th mat-header-cell *matHeaderCellDef>Score</th>
+              <ng-container matColumnDef="score">
+                <th mat-header-cell *matHeaderCellDef>Score</th>
+                <td mat-cell *matCellDef="let item"><span class="score-badge"><mat-icon>emoji_events</mat-icon> {{ item.score }}</span></td>
+              </ng-container>
 
-              <td mat-cell *matCellDef="let item">
-                <span class="score-badge">
-                  {{ item.score }}
-                </span>
-              </td>
-            </ng-container>
+              <ng-container matColumnDef="submittedAt">
+                <th mat-header-cell *matHeaderCellDef>Submitted</th>
+                <td mat-cell *matCellDef="let item"><span class="submitted-date"><mat-icon>calendar_today</mat-icon> {{ item.submittedAt | date: 'medium' }}</span></td>
+              </ng-container>
 
-            <!-- Submitted -->
-            <ng-container matColumnDef="submittedAt">
-              <th mat-header-cell *matHeaderCellDef>Submitted At</th>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
 
-              <td mat-cell *matCellDef="let item">
-                {{ item.submittedAt | date: "medium" }}
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
+          <ng-template #emptyHistory>
+            <div class="empty-state">
+              <span class="empty-icon"><mat-icon>history</mat-icon></span>
+              <h3>No test attempts yet</h3>
+              <p>When you submit a test, its score and completion time will appear here.</p>
+            </div>
+          </ng-template>
         </div>
       </mat-tab>
     </mat-tab-group>
-  </div>
-</div>
+  </section>
+</main>

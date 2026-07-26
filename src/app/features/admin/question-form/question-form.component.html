@@ -1,63 +1,96 @@
-<div class="page-container">
-  <h2 class="page-title">
-    {{ questionId ? "Edit Question" : "Create Question" }}
-  </h2>
+<main class="question-form-page">
+  <section class="form-hero">
+    <div class="hero-icon">
+      <mat-icon>{{ questionId ? 'edit_note' : 'post_add' }}</mat-icon>
+    </div>
+    <div>
+      <span class="eyebrow">{{ groupId ? 'GROUP QUESTION' : 'PART QUESTION' }}</span>
+      <h1>{{ questionId ? 'Edit question' : 'Create a question' }}</h1>
+      <p>{{ questionId ? 'Update the question content, position, or supporting media.' : 'Add a question and prepare it for its possible answers.' }}</p>
+    </div>
+  </section>
 
-  <div class="app-card">
-    <form [formGroup]="form">
-      <!-- Content -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Question Content</mat-label>
+  <section class="form-panel" aria-labelledby="question-details-title">
+    <div class="panel-heading">
+      <div class="step-badge">01</div>
+      <div>
+        <span class="section-kicker">QUESTION DETAILS</span>
+        <h2 id="question-details-title">Write the prompt</h2>
+      </div>
+    </div>
 
-        <textarea matInput formControlName="content"> </textarea>
-      </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="details-grid">
+        <mat-form-field appearance="outline" class="content-field">
+          <mat-label>Question content</mat-label>
+          <textarea matInput rows="7" formControlName="content" placeholder="Write the question learners need to answer."></textarea>
+          <mat-hint>Keep the prompt concise and easy to understand.</mat-hint>
+          <mat-error *ngIf="form.get('content')?.hasError('required')">Question content is required.</mat-error>
+        </mat-form-field>
 
-      <!-- Question order -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Question Order</mat-label>
-
-        <input matInput type="number" formControlName="questionOrder" />
-      </mat-form-field>
-
-      <!-- Upload image -->
-      <div class="upload-section">
-        <label>Upload Image</label>
-
-        <input type="file" accept="image/*" (change)="uploadImage($event)" />
+        <aside class="order-card">
+          <span class="order-icon"><mat-icon>format_list_numbered</mat-icon></span>
+          <h3>Question position</h3>
+          <p>Set the order in which this question appears in the test.</p>
+          <mat-form-field appearance="outline">
+            <mat-label>Order</mat-label>
+            <input matInput type="number" min="1" formControlName="questionOrder" />
+            <mat-error *ngIf="form.get('questionOrder')?.hasError('required')">An order is required.</mat-error>
+          </mat-form-field>
+        </aside>
       </div>
 
-      <!-- Image preview -->
-      <img
-        *ngIf="form.value.imageUrl"
-        [src]="form.value.imageUrl"
-        class="preview-image"
-      />
+      <div class="media-section">
+        <div class="media-section-heading">
+          <span class="section-kicker">OPTIONAL MEDIA</span>
+          <p>Attach an image or audio clip to support this individual question.</p>
+        </div>
 
-      <!-- Upload audio -->
-      <div class="upload-section">
-        <label>Upload Audio</label>
+        <div class="media-grid">
+          <article class="media-card">
+            <div class="media-card-title">
+              <span class="media-icon image-icon"><mat-icon>image</mat-icon></span>
+              <div><h3>Question image</h3><p>JPG, PNG, or another image file</p></div>
+            </div>
+            <label class="upload-button" [class.is-uploading]="isUploadingImage">
+              <mat-icon>{{ isUploadingImage ? 'hourglass_top' : 'upload' }}</mat-icon>
+              <span>{{ isUploadingImage ? 'Uploading image…' : 'Choose image' }}</span>
+              <input type="file" accept="image/*" (change)="uploadImage($event)" [disabled]="isUploadingImage" />
+            </label>
+            <div *ngIf="form.value.imageUrl" class="image-preview">
+              <img [src]="form.value.imageUrl" alt="Question image preview" />
+              <span><mat-icon>check_circle</mat-icon> Image attached</span>
+            </div>
+          </article>
 
-        <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
+          <article class="media-card">
+            <div class="media-card-title">
+              <span class="media-icon audio-icon"><mat-icon>headphones</mat-icon></span>
+              <div><h3>Question audio</h3><p>MP3, WAV, or another audio file</p></div>
+            </div>
+            <label class="upload-button" [class.is-uploading]="isUploadingAudio">
+              <mat-icon>{{ isUploadingAudio ? 'hourglass_top' : 'upload' }}</mat-icon>
+              <span>{{ isUploadingAudio ? 'Uploading audio…' : 'Choose audio' }}</span>
+              <input type="file" accept="audio/*" (change)="uploadAudio($event)" [disabled]="isUploadingAudio" />
+            </label>
+            <div *ngIf="form.value.audioUrl" class="audio-preview">
+              <span><mat-icon>check_circle</mat-icon> Audio attached</span>
+              <audio controls [src]="form.value.audioUrl"></audio>
+            </div>
+          </article>
+        </div>
       </div>
 
-      <!-- Audio preview -->
-      <audio
-        *ngIf="form.value.audioUrl"
-        controls
-        [src]="form.value.audioUrl"
-      ></audio>
-
-      <!-- Save -->
-      <div class="actions">
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="form.invalid || isUploadingImage || isUploadingAudio"
-          (click)="save()"
-        >
-          {{ isUploadingImage || isUploadingAudio ? "Uploading..." : "Save" }}
-        </button>
+      <div class="form-footer">
+        <p><mat-icon>info</mat-icon> You can manage answer choices after saving.</p>
+        <div class="footer-actions">
+          <button mat-stroked-button type="button" class="cancel-button" (click)="goBack()">Cancel</button>
+          <button mat-flat-button type="submit" class="save-button" [disabled]="form.invalid || isUploadingImage || isUploadingAudio">
+            <mat-icon>{{ questionId ? 'save' : 'arrow_forward' }}</mat-icon>
+            {{ isUploadingImage || isUploadingAudio ? 'Uploading media…' : (questionId ? 'Save changes' : 'Create question') }}
+          </button>
+        </div>
       </div>
     </form>
-  </div>
-</div>
+  </section>
+</main>

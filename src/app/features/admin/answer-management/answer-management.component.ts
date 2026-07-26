@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-answer-management',
   imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule],
   templateUrl: './answer-management.component.html',
-  styleUrl: './answer-management.component.css',
+  styleUrls: ['./answer-management.component.css'],
 })
 export class AnswerManagementComponent implements OnInit {
   answers: any[] = [];

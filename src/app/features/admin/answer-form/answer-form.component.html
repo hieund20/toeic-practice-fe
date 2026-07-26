@@ -1,39 +1,57 @@
-<div class="page-container">
-  <h2 class="page-title">
-    {{ answerId ? "Edit Answer" : "Create Answer" }}
-  </h2>
+<main class="answer-form-page">
+  <section class="form-hero">
+    <div class="hero-icon"><mat-icon>{{ answerId ? 'edit_note' : 'playlist_add' }}</mat-icon></div>
+    <div>
+      <span class="eyebrow">ANSWER CHOICE</span>
+      <h1>{{ answerId ? 'Edit answer choice' : 'Create an answer choice' }}</h1>
+      <p>{{ answerId ? 'Update this response or its correct-answer status.' : 'Add one of the possible responses for this question.' }}</p>
+    </div>
+  </section>
 
-  <div class="app-card">
-    <form [formGroup]="form">
-      <!-- Answer content -->
+  <section class="form-panel" aria-labelledby="answer-details-title">
+    <div class="panel-heading">
+      <div class="step-badge">01</div>
+      <div>
+        <span class="section-kicker">ANSWER DETAILS</span>
+        <h2 id="answer-details-title">Define the response</h2>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Answer Content</mat-label>
-
-        <input matInput formControlName="content" />
+        <mat-label>Answer content</mat-label>
+        <input matInput formControlName="content" placeholder="Write the answer choice" />
+        <mat-error *ngIf="form.get('content')?.hasError('required')">Answer content is required.</mat-error>
       </mat-form-field>
 
-      <!-- Answer order -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Answer Order</mat-label>
+      <div class="answer-settings">
+        <mat-form-field appearance="outline" class="order-field">
+          <mat-label>Answer order</mat-label>
+          <input matInput type="number" min="1" formControlName="answerOrder" />
+          <mat-hint>Position in the answer list.</mat-hint>
+          <mat-error *ngIf="form.get('answerOrder')?.hasError('required')">An order is required.</mat-error>
+        </mat-form-field>
 
-        <input matInput type="number" formControlName="answerOrder" />
-      </mat-form-field>
+        <div class="correct-card" [class.is-correct]="form.get('isCorrect')?.value">
+          <span class="correct-icon"><mat-icon>{{ form.get('isCorrect')?.value ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon></span>
+          <div class="correct-copy">
+            <h3>Correct answer</h3>
+            <p>Mark this choice when it is the right response.</p>
+          </div>
+          <mat-checkbox formControlName="isCorrect" aria-label="Mark as correct answer"></mat-checkbox>
+        </div>
+      </div>
 
-      <!-- Correct answer -->
-      <mat-checkbox formControlName="isCorrect">
-        Is Correct Answer
-      </mat-checkbox>
-
-      <div class="actions">
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="form.invalid"
-          (click)="save()"
-        >
-          Save
-        </button>
+      <div class="form-footer">
+        <p><mat-icon>info</mat-icon> Review the answer order before saving.</p>
+        <div class="footer-actions">
+          <button mat-stroked-button type="button" class="cancel-button" (click)="goBack()">Cancel</button>
+          <button mat-flat-button type="submit" class="save-button" [disabled]="form.invalid">
+            <mat-icon>{{ answerId ? 'save' : 'arrow_forward' }}</mat-icon>
+            {{ answerId ? 'Save changes' : 'Create answer' }}
+          </button>
+        </div>
       </div>
     </form>
-  </div>
-</div>
+  </section>
+</main>

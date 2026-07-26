@@ -1,22 +1,43 @@
-<div class="form-container">
-  <h2>
-    {{ partId ? "Edit Test Part" : "Create Test Part" }}
-  </h2>
+<main class="part-form-page">
+  <section class="form-hero">
+    <div class="hero-icon"><mat-icon>{{ partId ? 'edit_note' : 'add_circle_outline' }}</mat-icon></div>
+    <div>
+      <span class="eyebrow">TEST STRUCTURE</span>
+      <h1>{{ partId ? 'Edit test part' : 'Create a test part' }}</h1>
+      <p>{{ partId ? 'Update the position of this part in your TOEIC test.' : 'Add a section to start shaping your test structure.' }}</p>
+    </div>
+  </section>
 
-  <form [formGroup]="form">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Part Number</mat-label>
+  <section class="form-panel" aria-labelledby="part-details-title">
+    <div class="panel-heading">
+      <div class="step-badge">01</div>
+      <div>
+        <span class="section-kicker">PART DETAILS</span>
+        <h2 id="part-details-title">Choose its position</h2>
+      </div>
+    </div>
 
-      <input matInput type="number" formControlName="partNumber" />
-    </mat-form-field>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <mat-form-field appearance="outline" class="part-number-field">
+        <mat-label>Part number</mat-label>
+        <input matInput type="number" min="1" max="7" formControlName="partNumber" placeholder="1" />
+        <mat-hint>Enter a number from 1 to 7.</mat-hint>
+        <mat-error *ngIf="form.get('partNumber')?.hasError('required')">A part number is required.</mat-error>
+        <mat-error *ngIf="form.get('partNumber')?.hasError('min') || form.get('partNumber')?.hasError('max')">Choose a part number between 1 and 7.</mat-error>
+      </mat-form-field>
 
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="form.invalid"
-      (click)="save()"
-    >
-      Save
-    </button>
-  </form>
-</div>
+      <div class="part-guide">
+        <mat-icon>lightbulb</mat-icon>
+        <span>Parts 3, 4, 6, and 7 support question groups; other parts use individual questions.</span>
+      </div>
+
+      <div class="form-footer">
+        <p><mat-icon>info</mat-icon> You can add questions after saving this part.</p>
+        <button class="save-button" mat-flat-button type="submit" [disabled]="form.invalid">
+          <mat-icon>{{ partId ? 'save' : 'arrow_forward' }}</mat-icon>
+          {{ partId ? 'Save changes' : 'Create part' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

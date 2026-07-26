@@ -11,6 +11,7 @@ import { TestService } from '../../../services/test.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-test-part-form',
@@ -20,9 +21,10 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
   ],
   templateUrl: './test-part-form.component.html',
-  styleUrl: './test-part-form.component.css',
+  styleUrls: ['./test-part-form.component.css'],
 })
 export class TestPartFormComponent implements OnInit {
   form!: FormGroup;
@@ -47,7 +49,7 @@ export class TestPartFormComponent implements OnInit {
 
     this.testId = this.route.snapshot.paramMap.get('testId') || undefined;
 
-    this.partId = this.route.snapshot.paramMap.get('id') || undefined;
+    this.partId = this.route.snapshot.paramMap.get('partId') || undefined;
 
     if (this.partId) {
       this.loadPart();
@@ -83,6 +85,6 @@ export class TestPartFormComponent implements OnInit {
   goBack() {
     if (!this.testId) return;
 
-    this.router.navigate(['/admin/tests', this.testId, 'manage']);
+    this.router.navigate(['/admin/tests', this.testId, 'parts']);
   }
 }

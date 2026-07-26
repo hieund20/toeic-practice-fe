@@ -1,51 +1,71 @@
-<div class="page-container">
-  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+<main class="group-management-page">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
 
-  <div class="page-header">
-    <h2 class="page-title">Question Groups</h2>
-
-    <button mat-raised-button color="primary" (click)="createGroup()">
-      Create Group
+  <section class="management-hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><mat-icon>account_tree</mat-icon> GROUPED QUESTIONS</span>
+      <h1>Question groups</h1>
+      <p>Organise related passages or conversations, then add the questions learners will answer.</p>
+    </div>
+    <button class="create-button" mat-flat-button (click)="createGroup()">
+      <mat-icon>add</mat-icon>
+      Create group
     </button>
-  </div>
+  </section>
 
-  <div class="app-card">
-    <table mat-table [dataSource]="groups" class="group-table">
-      <!-- Title -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Title</th>
+  <section class="groups-library" aria-labelledby="groups-title">
+    <div class="library-heading">
+      <div>
+        <span class="section-kicker">GROUP LIBRARY</span>
+        <h2 id="groups-title">Your question groups</h2>
+      </div>
+      <span class="group-count"><mat-icon>folder_open</mat-icon> {{ groups.length }} groups</span>
+    </div>
 
-        <td mat-cell *matCellDef="let group">
-          {{ group.title }}
-        </td>
-      </ng-container>
+    <div class="table-shell" *ngIf="groups.length; else emptyState">
+      <table mat-table [dataSource]="groups" class="groups-table">
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Question group</th>
+          <td mat-cell *matCellDef="let group; let index = index">
+            <div class="group-title-cell">
+              <span class="group-number">{{ index + 1 }}</span>
+              <div>
+                <strong>{{ group.title }}</strong>
+                <span>Passage or conversation group</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
 
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef><span class="actions-label">Actions</span></th>
+          <td mat-cell *matCellDef="let group">
+            <div class="row-actions">
+              <button mat-icon-button class="action-button manage-action" (click)="manageQuestions(group.id)" aria-label="Manage group questions">
+                <mat-icon>format_list_bulleted</mat-icon>
+              </button>
+              <button mat-icon-button class="action-button edit-action" (click)="editGroup(group.id)" aria-label="Edit group">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="action-button delete-action" (click)="deleteGroup(group.id)" aria-label="Delete group">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-        <td mat-cell *matCellDef="let group">
-          <button
-            mat-icon-button
-            color="accent"
-            (click)="manageQuestions(group.id)"
-          >
-            <mat-icon> list </mat-icon>
-          </button>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
 
-          <button mat-icon-button color="primary" (click)="editGroup(group.id)">
-            <mat-icon> edit </mat-icon>
-          </button>
-
-          <button mat-icon-button color="warn" (click)="deleteGroup(group.id)">
-            <mat-icon> delete </mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-  </div>
-</div>
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <span class="empty-icon"><mat-icon>library_add</mat-icon></span>
+        <h3>No question groups yet</h3>
+        <p>Create a group for each passage, conversation, or visual prompt in this part.</p>
+        <button mat-stroked-button (click)="createGroup()"><mat-icon>add</mat-icon> Create first group</button>
+      </div>
+    </ng-template>
+  </section>
+</main>

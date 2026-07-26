@@ -1,30 +1,72 @@
-<div class="page-container" *ngIf="test">
-  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+<main class="parts-page" *ngIf="test">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
 
-  <div class="page-header">
-    <h2 class="page-title">Manage: {{ test.title }}</h2>
-
-    <button mat-raised-button color="primary" (click)="createPart()">
-      Create Part
+  <section class="parts-hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><mat-icon>account_tree</mat-icon> TEST STRUCTURE</span>
+      <h1>{{ test.title }}</h1>
+      <p>Build each part of your TOEIC practice test, then add questions or question groups.</p>
+    </div>
+    <button class="create-button" mat-flat-button (click)="createPart()">
+      <mat-icon>add</mat-icon>
+      Create part
     </button>
-  </div>
+  </section>
 
-  <div *ngIf="test.parts.length === 0">No parts yet. Create one.</div>
+  <section class="parts-library" aria-labelledby="parts-title">
+    <div class="library-heading">
+      <div>
+        <span class="section-kicker">PARTS LIBRARY</span>
+        <h2 id="parts-title">Test parts</h2>
+      </div>
+      <span class="part-count"><mat-icon>layers</mat-icon> {{ test.parts.length }} parts</span>
+    </div>
 
-  <div *ngFor="let part of test.parts">
-    <mat-card class="app-card">
-      <mat-card-title> Part {{ part.partNumber }} </mat-card-title>
+    <div class="parts-grid" *ngIf="test.parts.length > 0; else emptyState">
+      <mat-card class="part-card" *ngFor="let part of test.parts">
+        <mat-card-content>
+          <div class="part-card-top">
+            <span class="part-number">PART {{ part.partNumber }}</span>
+            <span class="part-type">
+              <mat-icon>{{ [3, 4, 6, 7].includes(part.partNumber) ? 'account_tree' : 'format_list_numbered' }}</mat-icon>
+              {{ [3, 4, 6, 7].includes(part.partNumber) ? 'Grouped' : 'Individual' }}
+            </span>
+          </div>
 
-      <mat-card-content>
-        <p>Questions: {{ part.questions.length }}</p>
-        <p>Groups: {{ part.groups.length }}</p>
-      </mat-card-content>
+          <h3>TOEIC Part {{ part.partNumber }}</h3>
+          <p class="part-description">
+            {{ [3, 4, 6, 7].includes(part.partNumber) ? 'Organise passages or conversations into question groups.' : 'Add and organise individual practice questions.' }}
+          </p>
 
-      <mat-card-actions>
-        <button mat-icon-button color="accent" (click)="manageQuestions(part)">
-          <mat-icon> settings </mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div>
+          <div class="part-stats">
+            <div>
+              <mat-icon>help_outline</mat-icon>
+              <span><strong>{{ part.questions.length }}</strong> Questions</span>
+            </div>
+            <div>
+              <mat-icon>folder_open</mat-icon>
+              <span><strong>{{ part.groups.length }}</strong> Groups</span>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button class="manage-button" mat-stroked-button (click)="manageQuestions(part)">
+            <mat-icon>tune</mat-icon>
+            Manage content
+            <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <span class="empty-icon"><mat-icon>library_add</mat-icon></span>
+        <h3>This test has no parts yet</h3>
+        <p>Start by adding a part, then fill it with questions and learning material.</p>
+        <button mat-stroked-button (click)="createPart()"><mat-icon>add</mat-icon> Create first part</button>
+      </div>
+    </ng-template>
+  </section>
+</main>

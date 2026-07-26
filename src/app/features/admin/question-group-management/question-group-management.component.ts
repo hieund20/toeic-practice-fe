@@ -17,7 +17,7 @@ import { QuestionGroupService } from '../../../services/question-group.service';
     BreadcrumbComponent,
   ],
   templateUrl: './question-group-management.component.html',
-  styleUrl: './question-group-management.component.css',
+  styleUrls: ['./question-group-management.component.css'],
 })
 export class QuestionGroupManagementComponent implements OnInit {
   groups: any[] = [];

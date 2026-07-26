@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../../../services/test.service';
 
@@ -22,9 +23,10 @@ import { TestService } from '../../../services/test.service';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatIconModule,
   ],
   templateUrl: './answer-form.component.html',
-  styleUrl: './answer-form.component.css',
+  styleUrls: ['./answer-form.component.css'],
 })
 export class AnswerFormComponent implements OnInit {
   form!: FormGroup;

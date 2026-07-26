@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
 import { TestAttempt } from '../../models/test-attempt.model';
 import { AuthService } from '../../services/auth.service';
 import { TestAttemptService } from '../../services/test-attempt.service';
@@ -9,9 +10,9 @@ import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, MatTabsModule, MatTableModule],
+  imports: [CommonModule, MatTabsModule, MatTableModule, MatIconModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
   displayedColumns: string[] = ['test', 'score', 'submittedAt'];

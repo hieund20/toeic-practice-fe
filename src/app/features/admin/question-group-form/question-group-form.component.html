@@ -1,65 +1,94 @@
-<div class="page-container">
-  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+<main class="group-form-page">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
 
-  <h2 class="page-title">
-    {{ groupId ? "Edit Question Group" : "Create Question Group" }}
-  </h2>
+  <section class="form-hero">
+    <div class="hero-icon">
+      <mat-icon>{{ groupId ? 'edit_note' : 'library_add' }}</mat-icon>
+    </div>
+    <div>
+      <span class="eyebrow">QUESTION GROUP</span>
+      <h1>{{ groupId ? 'Edit question group' : 'Create a question group' }}</h1>
+      <p>{{ groupId ? 'Refine the shared content and media for this group.' : 'Add the shared passage and media that your questions will use.' }}</p>
+    </div>
+  </section>
 
-  <div class="app-card">
-    <form [formGroup]="form">
-      <!-- Title -->
+  <section class="form-panel" aria-labelledby="group-details-title">
+    <div class="panel-heading">
+      <div class="step-badge">01</div>
+      <div>
+        <span class="section-kicker">GROUP DETAILS</span>
+        <h2 id="group-details-title">Build the shared context</h2>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label> Group Title </mat-label>
-
-        <input matInput formControlName="title" />
+        <mat-label>Group title</mat-label>
+        <input matInput formControlName="title" placeholder="e.g. Office announcement" />
+        <mat-error *ngIf="form.get('title')?.hasError('required')">A group title is required.</mat-error>
       </mat-form-field>
 
-      <!-- Passage -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label> Passage Content </mat-label>
-
-        <textarea matInput rows="10" formControlName="content"> </textarea>
+      <mat-form-field appearance="outline" class="full-width passage-field">
+        <mat-label>Passage content</mat-label>
+        <textarea matInput rows="9" formControlName="content" placeholder="Enter the reading passage, conversation, or shared instructions here."></textarea>
+        <mat-hint>This content is shared by every question in the group.</mat-hint>
+        <mat-error *ngIf="form.get('content')?.hasError('required')">Passage content is required.</mat-error>
       </mat-form-field>
 
-      <!-- Upload image -->
-      <div class="upload-section">
-        <label> Upload Image </label>
+      <div class="media-section">
+        <div class="media-section-heading">
+          <span class="section-kicker">OPTIONAL MEDIA</span>
+          <p>Attach supporting image or audio for this question group.</p>
+        </div>
 
-        <input type="file" accept="image/*" (change)="uploadImage($event)" />
+        <div class="media-grid">
+          <article class="media-card">
+            <div class="media-card-title">
+              <span class="media-icon image-icon"><mat-icon>image</mat-icon></span>
+              <div>
+                <h3>Supporting image</h3>
+                <p>JPG, PNG, or another image file</p>
+              </div>
+            </div>
+            <label class="upload-button" [class.is-uploading]="isUploadingImage">
+              <mat-icon>{{ isUploadingImage ? 'hourglass_top' : 'upload' }}</mat-icon>
+              <span>{{ isUploadingImage ? 'Uploading image…' : 'Choose image' }}</span>
+              <input type="file" accept="image/*" (change)="uploadImage($event)" [disabled]="isUploadingImage" />
+            </label>
+            <div *ngIf="form.value.imageUrl" class="image-preview">
+              <img [src]="form.value.imageUrl" alt="Question group image preview" />
+              <span><mat-icon>check_circle</mat-icon> Image attached</span>
+            </div>
+          </article>
+
+          <article class="media-card">
+            <div class="media-card-title">
+              <span class="media-icon audio-icon"><mat-icon>headphones</mat-icon></span>
+              <div>
+                <h3>Listening audio</h3>
+                <p>MP3, WAV, or another audio file</p>
+              </div>
+            </div>
+            <label class="upload-button" [class.is-uploading]="isUploadingAudio">
+              <mat-icon>{{ isUploadingAudio ? 'hourglass_top' : 'upload' }}</mat-icon>
+              <span>{{ isUploadingAudio ? 'Uploading audio…' : 'Choose audio' }}</span>
+              <input type="file" accept="audio/*" (change)="uploadAudio($event)" [disabled]="isUploadingAudio" />
+            </label>
+            <div *ngIf="form.value.audioUrl" class="audio-preview">
+              <span><mat-icon>check_circle</mat-icon> Audio attached</span>
+              <audio controls [src]="form.value.audioUrl"></audio>
+            </div>
+          </article>
+        </div>
       </div>
 
-      <!-- Preview image -->
-      <img
-        *ngIf="form.value.imageUrl"
-        [src]="form.value.imageUrl"
-        class="preview-image"
-      />
-
-      <!-- Upload audio -->
-      <div class="upload-section">
-        <label> Upload Audio </label>
-
-        <input type="file" accept="audio/*" (change)="uploadAudio($event)" />
-      </div>
-
-      <!-- Preview audio -->
-      <audio
-        *ngIf="form.value.audioUrl"
-        controls
-        [src]="form.value.audioUrl"
-      ></audio>
-
-      <!-- Save -->
-      <div class="actions">
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="form.invalid || isUploadingImage || isUploadingAudio"
-          (click)="save()"
-        >
-          {{ isUploadingImage || isUploadingAudio ? "Uploading..." : "Save" }}
+      <div class="form-footer">
+        <button mat-stroked-button type="button" class="cancel-button" (click)="goBack()">Cancel</button>
+        <button mat-flat-button type="submit" class="save-button" [disabled]="form.invalid || isUploadingImage || isUploadingAudio">
+          <mat-icon>{{ groupId ? 'save' : 'arrow_forward' }}</mat-icon>
+          {{ isUploadingImage || isUploadingAudio ? 'Uploading media…' : (groupId ? 'Save changes' : 'Create group') }}
         </button>
       </div>
     </form>
-  </div>
-</div>
+  </section>
+</main>

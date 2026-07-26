@@ -17,7 +17,7 @@ import { MatIcon } from '@angular/material/icon';
     MatIcon,
   ],
   templateUrl: './test-detail-management.component.html',
-  styleUrl: './test-detail-management.component.css',
+  styleUrls: ['./test-detail-management.component.css'],
 })
 export class TestDetailManagementComponent implements OnInit {
   test: any;

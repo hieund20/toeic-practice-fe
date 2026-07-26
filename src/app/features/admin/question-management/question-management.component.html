@@ -1,51 +1,78 @@
-<div class="page-container">
-  <app-breadcrumb [items]="breadcrumbs"> </app-breadcrumb>
+<main class="question-management-page">
+  <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
 
-  <div class="page-header">
-    <h2 class="page-title">Manage Questions - Part</h2>
-
-    <button mat-raised-button color="primary" (click)="createQuestion()">
-      Create Question
+  <section class="management-hero">
+    <div class="hero-copy">
+      <span class="eyebrow"><mat-icon>quiz</mat-icon> {{ groupId ? 'GROUP QUESTIONS' : 'PART QUESTIONS' }}</span>
+      <h1>Question library</h1>
+      <p>{{ groupId ? 'Build the questions learners will answer for this shared passage or conversation.' : 'Create and organise the questions that make up this test part.' }}</p>
+    </div>
+    <button class="create-button" mat-flat-button (click)="createQuestion()">
+      <mat-icon>add</mat-icon>
+      Create question
     </button>
-  </div>
+  </section>
 
-  <table mat-table [dataSource]="questions">
-    <!-- Content -->
-    <ng-container matColumnDef="content">
-      <th mat-header-cell *matHeaderCellDef>Question</th>
+  <section class="questions-library" aria-labelledby="questions-title">
+    <div class="library-heading">
+      <div>
+        <span class="section-kicker">QUESTION LIST</span>
+        <h2 id="questions-title">Your questions</h2>
+      </div>
+      <span class="question-count"><mat-icon>format_list_numbered</mat-icon> {{ questions.length }} {{ questions.length === 1 ? 'question' : 'questions' }}</span>
+    </div>
 
-      <td mat-cell *matCellDef="let q">
-        {{ q.content }}
-      </td>
-    </ng-container>
+    <div class="table-shell" *ngIf="questions.length; else emptyState">
+      <table mat-table [dataSource]="questions" class="questions-table">
+        <ng-container matColumnDef="content">
+          <th mat-header-cell *matHeaderCellDef>Question</th>
+          <td mat-cell *matCellDef="let q; let index = index">
+            <div class="question-cell">
+              <span class="question-number">{{ q.questionOrder || index + 1 }}</span>
+              <div>
+                <strong>{{ q.content }}</strong>
+                <span>Question {{ q.questionOrder || index + 1 }}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
 
-    <!-- Order -->
-    <ng-container matColumnDef="order">
-      <th mat-header-cell *matHeaderCellDef>Order</th>
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef>Order</th>
+          <td mat-cell *matCellDef="let q">
+            <span class="order-pill">#{{ q.questionOrder }}</span>
+          </td>
+        </ng-container>
 
-      <td mat-cell *matCellDef="let q">
-        {{ q.questionOrder }}
-      </td>
-    </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef><span class="actions-label">Actions</span></th>
+          <td mat-cell *matCellDef="let q">
+            <div class="row-actions">
+              <button mat-icon-button class="action-button answers-action" (click)="manageAnswers(q.id)" aria-label="Manage answers">
+                <mat-icon>checklist</mat-icon>
+              </button>
+              <button mat-icon-button class="action-button edit-action" (click)="editQuestion(q.id)" aria-label="Edit question">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="action-button delete-action" (click)="deleteQuestion(q.id)" aria-label="Delete question">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
 
-      <td mat-cell *matCellDef="let q">
-        <button mat-icon-button color="accent" (click)="manageAnswers(q.id)">
-          <mat-icon>quiz</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" (click)="editQuestion(q.id)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="deleteQuestion(q.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <span class="empty-icon"><mat-icon>quiz</mat-icon></span>
+        <h3>No questions yet</h3>
+        <p>{{ groupId ? 'Add the first question for this group and then define its possible answers.' : 'Start building this part by adding its first question.' }}</p>
+        <button mat-stroked-button (click)="createQuestion()"><mat-icon>add</mat-icon> Create first question</button>
+      </div>
+    </ng-template>
+  </section>
+</main>

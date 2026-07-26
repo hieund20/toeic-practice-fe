@@ -17,7 +17,7 @@ import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/bread
     BreadcrumbComponent,
   ],
   templateUrl: './question-management.component.html',
-  styleUrl: './question-management.component.css',
+  styleUrls: ['./question-management.component.css'],
 })
 export class QuestionManagementComponent implements OnInit {
   questions: any[] = [];

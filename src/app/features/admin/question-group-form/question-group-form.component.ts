@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/breadcrumb.component';
 
 @Component({
@@ -22,10 +23,11 @@ import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/bread
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     BreadcrumbComponent,
   ],
   templateUrl: './question-group-form.component.html',
-  styleUrl: './question-group-form.component.css',
+  styleUrls: ['./question-group-form.component.css'],
 })
 export class QuestionGroupFormComponent implements OnInit {
   form!: FormGroup;
